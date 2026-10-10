@@ -1,0 +1,44 @@
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px 12px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text-title);
+  letter-spacing: -0.4px;
+}
+
+.section-action-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: -0.1px;
+  padding: 4px 0;
+  transition: opacity 0.15s ease;
+}
+
+.section-action-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    padding: 12px 24px 16px 24px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    letter-spacing: -0.5px;
+  }
+
+  .section-action-link {
+    font-size: 14px;
+  }
+}
