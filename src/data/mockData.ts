@@ -138,8 +138,10 @@ export const ALL_PRODUCTS: ProductItem[] = [
 ];
 
 export const FEATURED_PRODUCTS: ProductItem[] = [
-  ALL_PRODUCTS[4], // Ração Premium
+  ALL_PRODUCTS[4], // Ração Premium Cães
   ALL_PRODUCTS[5], // Brinquedo Mordedor
+  ALL_PRODUCTS[0], // Shampoo Neutro Pet
+  ALL_PRODUCTS[3], // Fonte de Água Bivolt
 ];
 
 export const OFFER_BANNER: OfferBannerData = {
