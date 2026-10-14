@@ -121,7 +121,117 @@ export const HOME_FEATURED_PRODUCTS: ProductItem[] = [
   },
 ];
 
-export const ALL_PRODUCTS: ProductItem[] = HOME_FEATURED_PRODUCTS;
+export const CATALOG_PRODUCTS: ProductItem[] = [
+  {
+    id: 'racao-premium-caes-15kg',
+    name: 'Ração Premium Cães Adultos 15kg',
+    category: 'Rações',
+    price: 249.90,
+    rating: 4.9,
+    reviewsCount: 120,
+    imageUrl: '/images/desktop/prod-racao-catalog.png',
+    isFavorite: false,
+    petAge: 'Adulto',
+    petSize: 'Grande',
+    description: 'Formulada cientificamente para cães adultos de porte médio a grande. Contém proteínas selecionadas de alta digestibilidade, antioxidantes naturais para suporte imunológico e ômega 3 e 6 para uma pelagem brilhante e saudável. Sem corantes artificiais.',
+    specs: {
+      'Peso da Embalagem': '15 kg',
+      'Idade Recomendada': 'Cães Adultos de 1 a 7 anos',
+      'Porte': 'Médio, Grande, Gigante',
+      'Sabor': 'Frango, Arroz e Vegetais selecionados',
+      'Marca': 'PetConnect BioCuidado',
+    },
+  },
+  {
+    id: 'brinquedo-mordedor-borracha',
+    name: 'Brinquedo Mordedor Interativo de Borracha',
+    category: 'Brinquedos',
+    price: 49.90,
+    rating: 4.8,
+    reviewsCount: 85,
+    imageUrl: '/images/desktop/prod-brinquedo-catalog.png',
+    isFavorite: false,
+    petAge: 'Filhote',
+    petSize: 'Pequeno',
+    description: 'Brinquedo mordedor com textura texturizada que massageia gengivas e alivia o estresse e a ansiedade de separação de cães de todas as idades.',
+    specs: {
+      'Material': 'Borracha Atóxica Ultra-Resistente',
+      'Porte Indicado': 'Todos os portes',
+    },
+  },
+  {
+    id: 'arranhador-torre-gatos',
+    name: 'Arranhador Torre Moderno para Gatos',
+    category: 'Acessórios',
+    price: 189.90,
+    rating: 4.7,
+    reviewsCount: 42,
+    imageUrl: '/images/desktop/prod-arranhador-catalog.png',
+    isFavorite: false,
+    petAge: 'Adulto',
+    petSize: 'Médio',
+    description: 'Torre de arranhar em madeira maciça e sisal premium com múltiplos níveis e mirante acolchoado para descanso e diversão dos felinos.',
+    specs: {
+      'Material': 'Madeira de Reflorestamento e Sisal',
+      'Altura': '110 cm',
+    },
+  },
+  {
+    id: 'cama-ortopedica-comfort-grande',
+    name: 'Cama Ortopédica Comfort Grande',
+    category: 'Acessórios',
+    price: 299.90,
+    rating: 5.0,
+    reviewsCount: 98,
+    imageUrl: '/images/desktop/prod-cama-catalog.png',
+    isFavorite: false,
+    petAge: 'Sênior',
+    petSize: 'Grande',
+    description: 'Cama com espuma viscoelástica que alivia pontos de pressão nas articulações, tecido impermeável e capa removível e lavável.',
+    specs: {
+      'Dimensões': '100 x 80 x 20 cm',
+      'Porte Indicado': 'Médio e Grande',
+    },
+  },
+  {
+    id: 'coleira-peitoral-ergonomica',
+    name: 'Coleira Peitoral Ergonômica Ajustável',
+    category: 'Acessórios',
+    price: 89.90,
+    rating: 4.6,
+    reviewsCount: 73,
+    imageUrl: '/images/desktop/prod-coleira-catalog.png',
+    isFavorite: false,
+    petAge: 'Adulto',
+    petSize: 'Médio',
+    description: 'Coleira peitoral ergonômica com fitas acolchoadas respiráveis, travas de segurança em metal e pontos refletivos para passeios noturnos seguros.',
+    specs: {
+      'Material': 'Nylon Balístico e Aço Inox',
+      'Ajuste': '4 pontos de regulagem anatômica',
+      'Tamanho': 'M (peito 50-70cm)',
+    },
+  },
+  {
+    id: 'petiscos-saudaveis-naturais',
+    name: 'Petiscos Saudáveis Naturais de Frango',
+    category: 'Rações',
+    price: 18.90,
+    rating: 4.9,
+    reviewsCount: 310,
+    imageUrl: '/images/desktop/prod-petiscos-catalog.png',
+    isFavorite: false,
+    petAge: 'Filhote',
+    petSize: 'Pequeno',
+    description: 'Snacks 100% naturais desidratados lentamente com filé de frango selecionado. Ricos em proteínas, sem conservantes, aromatizantes ou subprodutos artificiais.',
+    specs: {
+      'Peso': '100 g',
+      'Ingredientes': '100% Peito de Frango Desidratado',
+      'Indicação': 'Cães e Gatos de todos os portes',
+    },
+  },
+];
+
+export const ALL_PRODUCTS: ProductItem[] = CATALOG_PRODUCTS;
 export const FEATURED_PRODUCTS: ProductItem[] = HOME_FEATURED_PRODUCTS;
 
 export const SEARCH_CATEGORIES: string[] = [
@@ -130,6 +240,7 @@ export const SEARCH_CATEGORIES: string[] = [
   'Brinquedos',
   'Higiene',
   'Acessórios',
+  'Farmácia',
 ];
 
 export const HOME_SERVICES: ServiceItem[] = [

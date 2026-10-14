@@ -1,6 +1,7 @@
 export type NavPageId = 
   | 'inicio' 
   | 'produtos' 
+  | 'detalhes-produto'
   | 'servicos' 
   | 'adocao' 
   | 'apoie' 
@@ -46,6 +47,8 @@ export interface ProductItem {
   badge?: string;
   description?: string;
   specs?: Record<string, string>;
+  petAge?: 'Filhote' | 'Adulto' | 'Sênior' | string;
+  petSize?: 'Pequeno' | 'Médio' | 'Grande' | string;
 }
 
 export interface ServiceItem {

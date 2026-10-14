@@ -12,9 +12,9 @@
 | # | Página / Módulo | Referência Desktop | Referência Mobile | Status Desktop | Status Mobile |
 |---|---|---|---|---|---|
 | 1 | **Página Inicial (Home)** | `design/Desktop/home.png` (1440x2749) | `design/mobile/home.png` (402x874) | **Concluída** | Não iniciada |
-| 2 | **Catálogo de Produtos** | `design/Desktop/produtos.png` (1440x1572) | `design/mobile/busca.png` (402x874) | **Próxima (Aguardando aprovação)** | Não iniciada |
-| 3 | **Detalhes do Produto** | `design/Desktop/detalhes-do-produto.png` (1440x2088) | `design/mobile/detalhes-produto.png` (402x874) | Não iniciada | Não iniciada |
-| 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | Não iniciada | Não iniciada |
+| 2 | **Catálogo de Produtos** | `design/Desktop/produtos.png` (1440x1572) | `design/mobile/busca.png` (402x874) | **Concluída** | Não iniciada |
+| 3 | **Detalhes do Produto** | `design/Desktop/detalhes-do-produto.png` (1440x2088) | `design/mobile/detalhes-produto.png` (402x874) | **Concluída** | Não iniciada |
+| 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | **Próxima (Aguardando aprovação)** | Não iniciada |
 | 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | Não iniciada | Não iniciada |
 | 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | Não iniciada | Não iniciada |
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | Não iniciada | Não iniciada |
@@ -33,35 +33,46 @@
 ---
 
 ## 2. Relatório de Execução — Página 1: Página Inicial Desktop
-
-### Componentes Existentes Reutilizados e Ajustados
-- **`Navbar` (`src/components/common/Navbar.tsx`, `Navbar.css`)**:
-  - Reutilizado e reformulado para espelhar com exatidão o cabeçalho desktop do Figma: logotipo oficial PetConnect (ícone com patinha e tipografia verde petróleo `#0f766e`), links de navegação (`Início`, `Produtos`, `Serviços`, `Adoção`, `Apoie`, `Chat`) com indicador ativo de sublinhado, botões de ação (busca, favoritos, carrinho com badge `3`), e perfil da usuária Mariana com foto original.
-- **`Footer` (`src/components/common/Footer.tsx`, `Footer.css`)**:
-  - Reestruturado para o padrão de alta fidelidade: fundo escuro premium (`#0f172a`), 4 colunas semânticas (*PetConnect*, *SERVIÇOS*, *PRODUTOS*, *INSTITUCIONAL*), textos oficiais e ícones sociais nativos (Instagram, Facebook, Twitter).
-- **`SectionHeader` (`src/components/home/SectionHeader.tsx`, `SectionHeader.css`)**:
-  - Ajustado para suportar links estilizados com seta interativa (`Ver todos os produtos →`, `Ver no mapa →`).
-- **`ProductCard` (`src/components/home/ProductCard.tsx`, `ProductCard.css`)**:
-  - Reestruturado para as dimensões e proporções do Figma Desktop (largura de grid de 4 colunas, imagem com botão de favoritar interativo sobreposto, nota de avaliação com estrelas, preço em destaque e botão pill `Ver produto`).
-
-### Componentes Novos Criados
-- **`HeroBanner` (`src/components/home/HeroBanner.tsx`, `HeroBanner.css`)**:
-  - Banner imersivo com imagem fotográfica do cão e gato na sala, gradiente de contraste à esquerda, título em tipografia expressiva ("Tudo para cuidar melhor do seu pet"), descrição e botão de ação ("Explorar agora").
-- **`QuickActionCards` (`src/components/home/QuickActionCards.tsx`, `QuickActionCards.css`)**:
-  - Grade de 4 cards de atalhos ("O que você precisa hoje?") com ícones em caixas coloridas suaves (Produtos, Serviços, Adote, Apoie).
-- **`ServiceCard` (`src/components/home/ServiceCard.tsx`, `ServiceCard.css`)**:
-  - Card de serviço profissional com foto de capa, badge da categoria (*Veterinário*, *Banho & Tosa*), avaliação média e contagem de reviews, distância com ícone de pin, tag "Atendimento domiciliar" e botão "Agendar".
-- **`AdoptionBannerCard` (`src/components/home/AdoptionBannerCard.tsx`, `AdoptionBannerCard.css`)**:
-  - Card com imagem do animal no abrigo, selo "Campanha de Adoção", título "Mude uma vida, adote um amigo", descrição de responsabilidade e botão "Conheça os pets".
-
-### Tokens e Estilos Globais
-- **`variables.css`**: Definidos os tokens oficiais do PetConnect: `--color-primary: #0f766e`, `--color-accent: #14b8a6`, `--color-slate-900: #0f172a`, `--color-primary-light: #ccfbf1`, além de sombras, raios de borda e largura máxima de container (`1280px`).
-
-### Dados e Tipagens
-- **`src/types/index.ts`**: Tipagens estritas para todas as entidades e navegações do sistema.
-- **`src/data/mockData.ts`**: Dados mock enriquecidos contendo os itens reais do Figma Desktop.
+(Documentado com Navbar, HeroBanner limpo e transparente, QuickActionCards, ProductCard, ServiceCard, AdoptionBannerCard, Footer).
 
 ---
 
-## 3. Próximos Passos (Fase A)
-Após a aprovação desta primeira entrega, iniciaremos a implementação da **Página 2: Catálogo de Produtos Desktop (`design/Desktop/produtos.png`)**.
+## 3. Relatório de Execução — Página 2: Catálogo de Produtos Desktop (`design/Desktop/produtos.png`)
+(Documentado com ProductSearchBar, ProductFilterSidebar, ProductsPage com grade de 3 colunas e ordenação funcional, Footer).
+
+---
+
+## 4. Relatório de Execução — Página 3: Detalhes do Produto Desktop (`design/Desktop/detalhes-do-produto.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Ajustado para manter a aba `Produtos` ativa e com sublinhado teal durante a visualização de detalhes.
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com o padrão de alta fidelidade em 4 colunas slate escuro.
+- **`ProductCard` (`src/components/home/ProductCard.tsx`)**: Reutilizado na seção de produtos recomendados ("Quem viu este produto também comprou").
+
+### Componentes e Telas Implementadas
+- **`ProductDetailPage` (`src/pages/ProductDetailPage.tsx`, `ProductDetailPage.css`)**:
+  - **Breadcrumb de retorno**: Botão `< Voltar para Rações` estilizado em verde petróleo.
+  - **Galeria de Imagens**: Exibição principal de 608x480 com cantos arredondados (`20px`), mais 3 miniaturas interativas de 100x100 (embalagem, grãos em close e tigela).
+  - **Buy Box / Informações**:
+    - Selo pill da categoria `Ração Premium`.
+    - Título oficial `Ração Premium Cães Adultos Sabores Selecionados 15kg`.
+    - Avaliação com estrela dourada ★ 4.9 (120 avaliações de clientes).
+    - Preço principal `R$ 249,90` com parcelamento `10x de R$ 24,99 sem juros`.
+    - Parágrafo de descrição nutricional e características.
+    - Seletor numérico de quantidade `[- 1 +]`.
+    - Botão CTA `Adicionar ao carrinho` com integração ao contador do carrinho no cabeçalho e notificação Toast.
+  - **Card de Abas de Conteúdo**:
+    - Abas interativas: `Especificações` (com tabela completa de peso, idade, porte, sabor e marca), `Níveis de Garantia` e `Guia Alimentar`.
+  - **Grade de Recomendação**:
+    - Seção "Quem viu este produto também comprou" com 4 cards de produtos em grade proporcional.
+
+### Validação Visual
+- Captura de tela realizada em 1440px arquivada em `public/shot-detail-1440-actual.png`.
+- Lint: 0 erros e 0 avisos.
+- Build de produção: concluído com sucesso em 649ms.
+
+---
+
+## 5. Próximos Passos (Fase A)
+Após aprovação desta entrega, iniciaremos a implementação da **Página 4: Serviços Profissionais Desktop (`design/Desktop/servicos.png`)**.
+

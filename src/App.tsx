@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HomePage } from './pages/HomePage';
-import type { NavPageId, CategoryId } from './types';
+import { ProductsPage } from './pages/ProductsPage';
+import { ProductDetailPage } from './pages/ProductDetailPage';
+import { CATALOG_PRODUCTS } from './data/mockData';
+import type { NavPageId, CategoryId, ProductItem } from './types';
 import './App.css';
 
 export function App() {
@@ -10,6 +13,7 @@ export function App() {
   const urlPage = searchParams.get('page') as NavPageId | null;
 
   const [currentPage, setCurrentPage] = useState<NavPageId>(urlPage || 'inicio');
+  const [selectedProductId, setSelectedProductId] = useState<string>('racao-premium-caes-15kg');
   const [cartCount, setCartCount] = useState<number>(3);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -26,6 +30,7 @@ export function App() {
     if (page !== 'inicio') {
       const pageNames: Record<string, string> = {
         produtos: 'Catálogo de Produtos',
+        'detalhes-produto': 'Detalhes do Produto',
         servicos: 'Serviços Profissionais',
         adocao: 'Adoção de Pets',
         apoie: 'Apoie uma Causa',
@@ -52,9 +57,17 @@ export function App() {
   };
 
   const handleSelectProduct = (productId: string) => {
-    setCartCount((prev) => prev); // keep count reactive
-    showToast(`Visualizando produto selecionado (${productId})`);
+    setSelectedProductId(productId);
+    handleNavigate('detalhes-produto');
   };
+
+  const handleAddToCart = (product: ProductItem, quantity: number) => {
+    setCartCount((prev) => prev + quantity);
+    showToast(`${quantity}x "${product.name}" adicionado ao carrinho com sucesso!`);
+  };
+
+  const currentSelectedProduct =
+    CATALOG_PRODUCTS.find((p) => p.id === selectedProductId) || CATALOG_PRODUCTS[0];
 
   return (
     <div className="site-wrapper">
@@ -77,29 +90,46 @@ export function App() {
           />
         )}
 
-        {currentPage !== 'inicio' && (
-          <div className="placeholder-tab-view">
-            <h2 className="placeholder-title">
-              {currentPage === 'produtos' && 'Catálogo de Produtos'}
-              {currentPage === 'servicos' && 'Serviços Profissionais'}
-              {currentPage === 'adocao' && 'Adoção de Pets'}
-              {currentPage === 'apoie' && 'Apoie uma Causa'}
-              {currentPage === 'chat' && 'Chat de Atendimento'}
-              {currentPage === 'favoritos' && 'Meus Favoritos'}
-              {currentPage === 'perfil' && 'Perfil de Mariana'}
-            </h2>
-            <p className="placeholder-desc">
-              Esta seção será implementada nas próximas etapas do plano incremental do PetConnect.
-            </p>
-            <button
-              type="button"
-              className="back-to-home-btn"
-              onClick={() => handleNavigate('inicio')}
-            >
-              Voltar para a Página Inicial
-            </button>
-          </div>
+        {currentPage === 'produtos' && (
+          <ProductsPage
+            onSelectProduct={handleSelectProduct}
+            onNavigateHome={() => handleNavigate('inicio')}
+          />
         )}
+
+        {currentPage === 'detalhes-produto' && (
+          <ProductDetailPage
+            product={currentSelectedProduct}
+            onBack={() => handleNavigate('produtos')}
+            onAddToCart={handleAddToCart}
+            onSelectProduct={handleSelectProduct}
+          />
+        )}
+
+        {currentPage !== 'inicio' &&
+          currentPage !== 'produtos' &&
+          currentPage !== 'detalhes-produto' && (
+            <div className="placeholder-tab-view">
+              <h2 className="placeholder-title">
+                {currentPage === 'servicos' && 'Serviços Profissionais'}
+                {currentPage === 'adocao' && 'Adoção de Pets'}
+                {currentPage === 'apoie' && 'Apoie uma Causa'}
+                {currentPage === 'chat' && 'Chat de Atendimento'}
+                {currentPage === 'favoritos' && 'Meus Favoritos'}
+                {currentPage === 'perfil' && 'Perfil de Mariana'}
+              </h2>
+              <p className="placeholder-desc">
+                Esta seção será implementada nas próximas etapas do plano incremental do PetConnect.
+              </p>
+              <button
+                type="button"
+                className="back-to-home-btn"
+                onClick={() => handleNavigate('inicio')}
+              >
+                Voltar para a Página Inicial
+              </button>
+            </div>
+          )}
       </main>
 
       {/* Desktop Slate Footer */}
