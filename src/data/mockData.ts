@@ -243,17 +243,50 @@ export const SEARCH_CATEGORIES: string[] = [
   'Farmácia',
 ];
 
-export const HOME_SERVICES: ServiceItem[] = [
+export const SERVICE_CATEGORIES = [
+  { id: 'veterinarios', label: 'Veterinários' },
+  { id: 'banho-tosa', label: 'Banho & Tosa' },
+  { id: 'pet-sitter', label: 'Pet Sitter' },
+  { id: 'dog-walker', label: 'Dog Walker' },
+  { id: 'adestramento', label: 'Adestramento' },
+  { id: 'hospedagem', label: 'Hospedagem' },
+];
+
+export const SERVICES_CATALOG: ServiceItem[] = [
   {
     id: 'dr-gustavo-silva',
     name: 'Dr. Gustavo Silva - Clínica Geral',
-    category: 'veterinario',
+    category: 'veterinarios',
     categoryLabel: 'Veterinário',
     rating: 4.9,
     reviewsCount: 150,
     distance: 'A 1.2 km de você',
     isHomeService: true,
-    imageUrl: '/images/desktop/service-gustavo.png',
+    imageUrl: '/images/desktop/service-vet-gustavo.png',
+    buttonText: 'Agendar',
+  },
+  {
+    id: 'clinica-vetvida-24h',
+    name: 'Clínica VetVida 24 horas',
+    category: 'veterinarios',
+    categoryLabel: 'Hospital Veterinário',
+    rating: 4.7,
+    reviewsCount: 380,
+    distance: 'A 3.4 km de você',
+    isHomeService: true,
+    imageUrl: '/images/desktop/service-clinic-vetvida.png',
+    buttonText: 'Agendar',
+  },
+  {
+    id: 'dra-carolina-castro',
+    name: 'Dra. Carolina Castro - Dermatologista',
+    category: 'veterinarios',
+    categoryLabel: 'Especialista Vet',
+    rating: 5.0,
+    reviewsCount: 65,
+    distance: 'A 2.1 km de você',
+    isHomeService: true,
+    imageUrl: '/images/desktop/service-vet-carolina.png',
     buttonText: 'Agendar',
   },
   {
@@ -268,6 +301,35 @@ export const HOME_SERVICES: ServiceItem[] = [
     imageUrl: '/images/desktop/service-amigo-fiel.png',
     buttonText: 'Agendar',
   },
+  {
+    id: 'hotel-resort-pet-paradise',
+    name: 'Hotel & Resort Pet Paradise',
+    category: 'hospedagem',
+    categoryLabel: 'Hospedagem',
+    rating: 4.9,
+    reviewsCount: 140,
+    distance: 'A 4.0 km de você',
+    isHomeService: true,
+    imageUrl: '/images/desktop/service-resort-paradise.png',
+    buttonText: 'Agendar',
+  },
+  {
+    id: 'lucas-adestramento-educativo',
+    name: 'Lucas Adestramento Educativo',
+    category: 'adestramento',
+    categoryLabel: 'Adestrador',
+    rating: 4.8,
+    reviewsCount: 92,
+    distance: 'A 1.8 km de você',
+    isHomeService: true,
+    imageUrl: '/images/desktop/service-adestramento-lucas.png',
+    buttonText: 'Agendar',
+  },
+];
+
+export const HOME_SERVICES: ServiceItem[] = [
+  SERVICES_CATALOG[0],
+  SERVICES_CATALOG[3],
 ];
 
 export const ADOPTION_CAMPAIGN: AdoptionCampaignData = {

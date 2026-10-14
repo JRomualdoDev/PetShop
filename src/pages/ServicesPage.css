@@ -1,0 +1,555 @@
+/* ==========================================================================
+   ServicesPage Desktop Styles — Pixel-faithful to design/Desktop/servicos.png
+   ========================================================================== */
+
+.desktop-services-page {
+  width: 100%;
+  background-color: #ffffff;
+  min-height: calc(100vh - 80px);
+}
+
+.services-page-container {
+  max-width: var(--content-max-width, 1280px);
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Header Row: Title & Subtitle (Left) + Location Selector (Right)
+   -------------------------------------------------------------------------- */
+
+.services-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.services-title-col {
+  flex: 1;
+}
+
+.services-main-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-slate-900, #0f172a);
+  letter-spacing: -0.025em;
+  margin: 0 0 8px 0;
+}
+
+.services-sub-title {
+  font-size: 15px;
+  color: var(--color-slate-500, #64748b);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Location Selector Dropdown */
+.services-location-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.location-selector-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-slate-800, #1e293b);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.location-selector-btn:hover {
+  border-color: var(--color-primary, #008774);
+  box-shadow: 0 2px 6px rgba(0, 135, 116, 0.12);
+}
+
+.location-pin-icon {
+  color: var(--color-primary, #008774);
+  flex-shrink: 0;
+}
+
+.location-text {
+  white-space: nowrap;
+}
+
+.location-arrow-icon {
+  color: var(--color-slate-600, #475569);
+  transition: transform 0.2s ease;
+}
+
+.location-arrow-icon.open {
+  transform: rotate(180deg);
+}
+
+.location-dropdown-card {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  z-index: 60;
+  animation: dropdownFadeIn 0.18s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.location-dropdown-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-slate-400, #94a3b8);
+  padding: 8px 16px 4px;
+}
+
+.location-dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.location-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-slate-700, #334155);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.location-dropdown-item:hover {
+  background-color: var(--color-slate-50, #f8fafc);
+  color: var(--color-primary, #008774);
+}
+
+.location-dropdown-item.selected {
+  color: var(--color-primary, #008774);
+  font-weight: 700;
+  background-color: var(--color-primary-light, #e6f9f5);
+}
+
+.loc-check-icon {
+  color: var(--color-primary, #008774);
+}
+
+/* --------------------------------------------------------------------------
+   Category Filter Pills Row
+   -------------------------------------------------------------------------- */
+
+.services-categories-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.service-cat-pill {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-slate-700, #334155);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.service-cat-pill:hover {
+  border-color: var(--color-slate-300, #cbd5e1);
+  background-color: var(--color-slate-50, #f8fafc);
+}
+
+/* Active Pill exactly matches Figma teal #0f766e */
+.service-cat-pill.active {
+  background-color: #0f766e;
+  border-color: #0f766e;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.22);
+}
+
+/* --------------------------------------------------------------------------
+   Services Grid Section (3 Columns)
+   -------------------------------------------------------------------------- */
+
+.services-grid-section {
+  margin-bottom: 48px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.services-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: var(--color-slate-50, #f8fafc);
+  border-radius: var(--radius-lg, 16px);
+  border: 1px dashed var(--color-border, #e2e8f0);
+}
+
+.empty-state-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-slate-800, #1e293b);
+  margin-bottom: 8px;
+}
+
+.empty-state-desc {
+  font-size: 14px;
+  color: var(--color-slate-500, #64748b);
+  margin-bottom: 20px;
+}
+
+.empty-state-reset-btn {
+  background-color: var(--color-primary, #008774);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: var(--radius-full, 9999px);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.empty-state-reset-btn:hover {
+  background-color: var(--color-primary-hover, #007060);
+}
+
+/* --------------------------------------------------------------------------
+   Map Promotion Banner (Soft Mint Background)
+   -------------------------------------------------------------------------- */
+
+.services-map-banner {
+  background-color: #ccfbf1;
+  border-radius: 24px;
+  padding: 48px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  box-sizing: border-box;
+}
+
+.map-banner-content-col {
+  flex: 1;
+  max-width: 580px;
+}
+
+.map-banner-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f766e;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0 0 12px 0;
+}
+
+.map-banner-description {
+  font-size: 15px;
+  color: #359088;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  font-weight: 500;
+}
+
+.map-banner-cta-btn {
+  background-color: var(--color-primary, #008774);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: var(--radius-full, 9999px);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 135, 116, 0.25);
+}
+
+.map-banner-cta-btn:hover {
+  background-color: var(--color-primary-hover, #007060);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 135, 116, 0.35);
+}
+
+.map-banner-graphic-col {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-banner-illustration {
+  width: 400px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.12);
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Map Modal Dialog
+   -------------------------------------------------------------------------- */
+
+.map-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.map-modal-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 920px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.map-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.map-modal-title-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-pin-icon {
+  color: var(--color-primary, #008774);
+}
+
+.map-modal-title-box h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-slate-900, #0f172a);
+}
+
+.map-modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--color-slate-500, #64748b);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.map-modal-close-btn:hover {
+  background-color: var(--color-slate-100, #f1f5f9);
+  color: var(--color-slate-800, #1e293b);
+}
+
+.map-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  height: 480px;
+}
+
+.simulated-map-canvas {
+  position: relative;
+  background-color: #f7f4ec;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-map-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Map Pin Badges */
+.map-pin-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  padding: 6px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-slate-800, #1e293b);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-pin-badge:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--color-primary, #008774);
+  box-shadow: 0 6px 16px rgba(0, 135, 116, 0.25);
+}
+
+.pin-1 {
+  top: 35%;
+  left: 20%;
+}
+
+.pin-2 {
+  top: 48%;
+  left: 45%;
+}
+
+.pin-3 {
+  top: 25%;
+  right: 20%;
+}
+
+.pin-dot {
+  font-size: 14px;
+}
+
+.map-modal-sidebar {
+  border-left: 1px solid var(--color-border, #e2e8f0);
+  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--color-slate-50, #f8fafc);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-slate-500, #64748b);
+  margin: 0 0 16px 0;
+}
+
+.sidebar-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-service-item {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-item-info strong {
+  display: block;
+  font-size: 13px;
+  color: var(--color-slate-800, #1e293b);
+  margin-bottom: 4px;
+}
+
+.sidebar-item-sub {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--color-slate-500, #64748b);
+}
+
+.sidebar-item-sub .star-icon {
+  color: #f59e0b;
+  fill: #f59e0b;
+}
+
+.sidebar-item-sub .dist {
+  color: var(--color-slate-400, #94a3b8);
+}
+
+.sidebar-item-btn {
+  background-color: var(--color-primary, #008774);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.15s ease;
+}
+
+.sidebar-item-btn:hover {
+  background-color: var(--color-primary-hover, #007060);
+}

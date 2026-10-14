@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
 > **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 1. Página Inicial Desktop (**Concluída**)  
-> **Próxima Página**: 2. Produtos Desktop (`design/Desktop/produtos.png`)  
+> **Página Atual**: 4. Serviços Profissionais Desktop (**Concluída**)  
+> **Próxima Página**: 5. Adoção de Pets Desktop (`design/Desktop/adocao.png`)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -14,8 +14,8 @@
 | 1 | **Página Inicial (Home)** | `design/Desktop/home.png` (1440x2749) | `design/mobile/home.png` (402x874) | **Concluída** | Não iniciada |
 | 2 | **Catálogo de Produtos** | `design/Desktop/produtos.png` (1440x1572) | `design/mobile/busca.png` (402x874) | **Concluída** | Não iniciada |
 | 3 | **Detalhes do Produto** | `design/Desktop/detalhes-do-produto.png` (1440x2088) | `design/mobile/detalhes-produto.png` (402x874) | **Concluída** | Não iniciada |
-| 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | **Próxima (Aguardando aprovação)** | Não iniciada |
-| 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | Não iniciada | Não iniciada |
+| 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | **Concluída** | Não iniciada |
+| 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | **Próxima (Aguardando aprovação)** | Não iniciada |
 | 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | Não iniciada | Não iniciada |
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | Não iniciada | Não iniciada |
 | 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | Não iniciada | Não iniciada |
@@ -43,36 +43,46 @@
 ---
 
 ## 4. Relatório de Execução — Página 3: Detalhes do Produto Desktop (`design/Desktop/detalhes-do-produto.png`)
-
-### Componentes Reutilizados e Ajustados
-- **`Navbar` (`src/components/common/Navbar.tsx`)**: Ajustado para manter a aba `Produtos` ativa e com sublinhado teal durante a visualização de detalhes.
-- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com o padrão de alta fidelidade em 4 colunas slate escuro.
-- **`ProductCard` (`src/components/home/ProductCard.tsx`)**: Reutilizado na seção de produtos recomendados ("Quem viu este produto também comprou").
-
-### Componentes e Telas Implementadas
-- **`ProductDetailPage` (`src/pages/ProductDetailPage.tsx`, `ProductDetailPage.css`)**:
-  - **Breadcrumb de retorno**: Botão `< Voltar para Rações` estilizado em verde petróleo.
-  - **Galeria de Imagens**: Exibição principal de 608x480 com cantos arredondados (`20px`), mais 3 miniaturas interativas de 100x100 (embalagem, grãos em close e tigela).
-  - **Buy Box / Informações**:
-    - Selo pill da categoria `Ração Premium`.
-    - Título oficial `Ração Premium Cães Adultos Sabores Selecionados 15kg`.
-    - Avaliação com estrela dourada ★ 4.9 (120 avaliações de clientes).
-    - Preço principal `R$ 249,90` com parcelamento `10x de R$ 24,99 sem juros`.
-    - Parágrafo de descrição nutricional e características.
-    - Seletor numérico de quantidade `[- 1 +]`.
-    - Botão CTA `Adicionar ao carrinho` com integração ao contador do carrinho no cabeçalho e notificação Toast.
-  - **Card de Abas de Conteúdo**:
-    - Abas interativas: `Especificações` (com tabela completa de peso, idade, porte, sabor e marca), `Níveis de Garantia` e `Guia Alimentar`.
-  - **Grade de Recomendação**:
-    - Seção "Quem viu este produto também comprou" com 4 cards de produtos em grade proporcional.
-
-### Validação Visual
-- Captura de tela realizada em 1440px arquivada em `public/shot-detail-1440-actual.png`.
-- Lint: 0 erros e 0 avisos.
-- Build de produção: concluído com sucesso em 649ms.
+(Documentado com Galeria de miniaturas interativas, Buy Box com seletor numérico, Abas de especificações, Grade de recomendação de 4 produtos e retorno ao catálogo).
 
 ---
 
-## 5. Próximos Passos (Fase A)
-Após aprovação desta entrega, iniciaremos a implementação da **Página 4: Serviços Profissionais Desktop (`design/Desktop/servicos.png`)**.
+## 5. Relatório de Execução — Página 4: Serviços Profissionais Desktop (`design/Desktop/servicos.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Aba `Serviços` ativada com sublinhado teal e transição de rota fluida.
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com o padrão de alta fidelidade em 4 colunas slate escuro.
+- **`ServiceCard` (`src/components/home/ServiceCard.tsx`, `ServiceCard.css`)**: Reutilizado na grade principal de 3 colunas, com altura de mídia calibrada para 180px, selos de categoria pill, avaliação com estrela dourada, distância com pin e botão de agendamento integrado.
+
+### Componentes e Telas Implementadas
+- **`ServicesPage` (`src/pages/ServicesPage.tsx`, `ServicesPage.css`)**:
+  - **Cabeçalho Principal**: Título `Serviços Profissionais` e subtítulo com espaçamento e pesos correspondentes ao Figma.
+  - **Seletor de Região/Localização**: Dropdown interativo estilo pill (`Pinheiros, São Paulo ˅`) com menu suspenso de bairros e indicador de seleção ativa.
+  - **Filtro em Pílulas (Category Pills)**:
+    - 6 categorias: `Veterinários` (ativa com fundo `#0f766e` e texto branco), `Banho & Tosa`, `Pet Sitter`, `Dog Walker`, `Adestramento` e `Hospedagem`.
+    - Filtragem dinâmica com persistência dos 6 serviços destacados e estado vazio elegante caso necessário.
+  - **Grade de Serviços (3 Colunas)**:
+    1. *Dr. Gustavo Silva - Clínica Geral* (★ 4.9 • 150 avaliações • 1.2 km)
+    2. *Clínica VetVida 24 horas* (★ 4.7 • 380 avaliações • 3.4 km)
+    3. *Dra. Carolina Castro - Dermatologista* (★ 5.0 • 65 avaliações • 2.1 km)
+    4. *Pet Shop Amigo Fiel - Estética* (★ 4.8 • 210 avaliações • 2.5 km)
+    5. *Hotel & Resort Pet Paradise* (★ 4.9 • 140 avaliações • 4.0 km)
+    6. *Lucas Adestramento Educativo* (★ 4.8 • 92 avaliações • 1.8 km)
+  - **Banner Promocional de Mapa ("Prefere visualizar os serviços no mapa?")**:
+    - Fundo menta suave `#ccfbf1` com cantos de `24px`.
+    - Texto explicativo em `#0f766e` e `#359088`.
+    - Botão CTA `Abrir mapa interativo` com sombra suave e microinteração.
+    - Ilustração do mapa isométrica de 400 × 240px com cantos arredondados e sombra suave.
+  - **Modal Interativo do Mapa**:
+    - Ao clicar em "Abrir mapa interativo", abre um modal moderno com pins ilustrados (Dr. Gustavo, VetVida, Amigo Fiel) e lista lateral de profissionais para agendamento direto.
+
+### Validação Visual
+- Captura de tela realizada em 1440px arquivada em `public/shot-servicos-1440-actual.png`.
+- Lint: 0 erros e 0 avisos em 37 arquivos.
+- Build de produção: concluído com sucesso em 468ms.
+
+---
+
+## 6. Próximos Passos (Fase A)
+Após aprovação desta entrega, iniciaremos a implementação da **Página 5: Adoção de Pets Desktop (`design/Desktop/adocao.png`)**.
 

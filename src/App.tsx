@@ -4,6 +4,7 @@ import { Footer } from './components/common/Footer';
 import { HomePage } from './pages/HomePage';
 import { ProductsPage } from './pages/ProductsPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
+import { ServicesPage } from './pages/ServicesPage';
 import { CATALOG_PRODUCTS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem } from './types';
 import './App.css';
@@ -106,12 +107,16 @@ export function App() {
           />
         )}
 
+        {currentPage === 'servicos' && (
+          <ServicesPage onBookService={handleBookService} />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
-          currentPage !== 'detalhes-produto' && (
+          currentPage !== 'detalhes-produto' &&
+          currentPage !== 'servicos' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
-                {currentPage === 'servicos' && 'Serviços Profissionais'}
                 {currentPage === 'adocao' && 'Adoção de Pets'}
                 {currentPage === 'apoie' && 'Apoie uma Causa'}
                 {currentPage === 'chat' && 'Chat de Atendimento'}
