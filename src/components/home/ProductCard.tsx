@@ -6,7 +6,7 @@ import './ProductCard.css';
 interface ProductCardProps {
   product: ProductItem;
   onToggleFavorite?: (id: string) => void;
-  onClick?: (id: string) => void;
+  onClick?: (productId: string) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -14,26 +14,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onToggleFavorite,
   onClick,
 }) => {
-  const formattedPrice = product.price.toLocaleString('pt-BR', {
+  const formattedPrice = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  });
+  }).format(product.price);
 
   return (
-    <article
-      className="product-card"
-      onClick={() => onClick && onClick(product.id)}
-      id={`product-card-${product.id}`}
-    >
-      <div className="product-image-container">
+    <article className="desktop-product-card" id={`product-card-${product.id}`}>
+      {/* Top Image Container with Favorite Action */}
+      <div className="product-card-media" onClick={() => onClick && onClick(product.id)}>
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="product-image"
+          className="product-card-img"
+          loading="lazy"
         />
         <button
           type="button"
-          className={`favorite-btn ${product.isFavorite ? 'favorited' : ''}`}
+          className={`product-card-favorite-btn ${product.isFavorite ? 'is-active' : ''}`}
           onClick={(e) => {
             e.stopPropagation();
             if (onToggleFavorite) onToggleFavorite(product.id);
@@ -41,24 +39,41 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           aria-label={product.isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
         >
           <Heart
-            size={16}
-            className="favorite-heart-icon"
-            fill={product.isFavorite ? '#ff5252' : 'none'}
-            stroke={product.isFavorite ? '#ff5252' : '#9ca3af'}
-            strokeWidth={2}
+            size={18}
+            className={`heart-icon ${product.isFavorite ? 'filled' : ''}`}
           />
         </button>
       </div>
 
-      <div className="product-info">
-        <h3 className="product-title">{product.name}</h3>
-
-        <div className="product-rating">
-          <Star size={13} fill="#ffb800" stroke="#ffb800" className="rating-star" />
-          <span className="rating-score">{product.rating.toFixed(1)}</span>
+      {/* Card Info Body */}
+      <div className="product-card-body">
+        {/* Rating */}
+        <div className="product-rating-row">
+          <Star size={14} className="star-icon" />
+          <span className="rating-value">{product.rating.toFixed(1)}</span>
+          <span className="reviews-count">({product.reviewsCount})</span>
         </div>
 
-        <div className="product-price">{formattedPrice}</div>
+        {/* Title */}
+        <h3
+          className="product-card-title"
+          onClick={() => onClick && onClick(product.id)}
+          title={product.name}
+        >
+          {product.name}
+        </h3>
+
+        {/* Price & Action Row */}
+        <div className="product-card-bottom-row">
+          <span className="product-card-price">{formattedPrice}</span>
+          <button
+            type="button"
+            className="product-card-cta-btn"
+            onClick={() => onClick && onClick(product.id)}
+          >
+            Ver produto
+          </button>
+        </div>
       </div>
     </article>
   );

@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
-import { GreetingHeader } from '../components/home/GreetingHeader';
-import { SearchBar } from '../components/home/SearchBar';
-import { CategoryGrid } from '../components/home/CategoryGrid';
+import { HeroBanner } from '../components/home/HeroBanner';
+import { QuickActionCards } from '../components/home/QuickActionCards';
 import { SectionHeader } from '../components/home/SectionHeader';
 import { ProductCard } from '../components/home/ProductCard';
-import { OfferBanner } from '../components/home/OfferBanner';
-import { CATEGORIES, FEATURED_PRODUCTS, OFFER_BANNER } from '../data/mockData';
-import type { CategoryId, ProductItem } from '../types';
+import { ServiceCard } from '../components/home/ServiceCard';
+import { AdoptionBannerCard } from '../components/home/AdoptionBannerCard';
+import {
+  QUICK_CATEGORIES,
+  HOME_FEATURED_PRODUCTS,
+  HOME_SERVICES,
+  ADOPTION_CAMPAIGN,
+} from '../data/mockData';
+import type { CategoryId, ProductItem, NavPageId } from '../types';
 import './HomePage.css';
 
 interface HomePageProps {
+  onNavigate?: (page: NavPageId) => void;
   onNavigateToCategory?: (category: CategoryId) => void;
   onNavigateToProduct?: (productId: string) => void;
-  onNavigateToSearch?: () => void;
-  onNavigateToOffers?: () => void;
+  onBookService?: (serviceId: string) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
+  onNavigate,
   onNavigateToCategory,
   onNavigateToProduct,
-  onNavigateToSearch,
-  onNavigateToOffers,
+  onBookService,
 }) => {
-  const [products, setProducts] = useState<ProductItem[]>(FEATURED_PRODUCTS);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [products, setProducts] = useState<ProductItem[]>(HOME_FEATURED_PRODUCTS);
 
   const handleToggleFavorite = (id: string) => {
     setProducts((prev) =>
@@ -31,57 +35,76 @@ export const HomePage: React.FC<HomePageProps> = ({
     );
   };
 
+  const handleCategoryClick = (catId: CategoryId) => {
+    if (onNavigateToCategory) {
+      onNavigateToCategory(catId);
+    } else if (onNavigate) {
+      if (catId === 'produtos') onNavigate('produtos');
+      else if (catId === 'servicos') onNavigate('servicos');
+      else if (catId === 'adote') onNavigate('adocao');
+      else if (catId === 'apoie') onNavigate('apoie');
+    }
+  };
+
   return (
-    <div className="home-page-content" id="home-screen-view">
-      {/* Top Greeting */}
-      <GreetingHeader userName="João" />
-
-      {/* Search Input Bar */}
-      <SearchBar
-        value={searchQuery}
-        onChange={setSearchQuery}
-        onSubmit={() => onNavigateToSearch && onNavigateToSearch()}
+    <div className="desktop-home-page" id="desktop-home-view">
+      {/* 1. Hero Banner */}
+      <HeroBanner
+        onCtaClick={() => onNavigate && onNavigate('produtos')}
       />
 
-      {/* Category Shortcut Grid */}
-      <CategoryGrid
-        categories={CATEGORIES}
-        onSelectCategory={onNavigateToCategory}
+      {/* 2. Quick Action Category Cards */}
+      <QuickActionCards
+        categories={QUICK_CATEGORIES}
+        onSelectCategory={handleCategoryClick}
       />
 
-      {/* Featured Products Section */}
-      <section className="home-section" aria-labelledby="featured-products-heading">
-        <SectionHeader
-          title="Produtos em destaque"
-          actionText="Ver tudo"
-          onActionClick={onNavigateToSearch}
-        />
-        <div className="products-horizontal-list">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onToggleFavorite={handleToggleFavorite}
-              onClick={onNavigateToProduct}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Special Offers Section */}
-      <section className="home-section offers-section" aria-labelledby="offers-heading">
-        <SectionHeader
-          title="Ofertas para seu pet"
-          actionText="Ver tudo"
-          onActionClick={onNavigateToOffers}
-        />
-        <div className="offer-banner-wrapper">
-          <OfferBanner
-            banner={OFFER_BANNER}
-            onClick={onNavigateToOffers}
+      {/* 3. Featured Products Section */}
+      <section className="home-section products-section" aria-labelledby="featured-products-heading">
+        <div className="section-container">
+          <SectionHeader
+            title="Produtos em destaque"
+            actionText="Ver todos os produtos"
+            onActionClick={() => onNavigate && onNavigate('produtos')}
           />
+          <div className="products-grid-row">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onToggleFavorite={handleToggleFavorite}
+                onClick={onNavigateToProduct}
+              />
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* 4. Services Nearby Section */}
+      <section className="home-section services-section" aria-labelledby="services-nearby-heading">
+        <div className="section-container">
+          <SectionHeader
+            title="Serviços próximos de você"
+            actionText="Ver no mapa"
+            onActionClick={() => onNavigate && onNavigate('servicos')}
+          />
+          <div className="services-grid-row">
+            {HOME_SERVICES.map((service) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                onBook={onBookService}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Adoption Campaign Banner Card */}
+      <AdoptionBannerCard
+        campaign={ADOPTION_CAMPAIGN}
+        onExplore={() => onNavigate && onNavigate('adocao')}
+      />
     </div>
   );
 };

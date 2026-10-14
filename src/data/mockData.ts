@@ -1,153 +1,176 @@
-import type { CategoryItem, ProductItem, OfferBannerData } from '../types';
+import type {
+  QuickCategoryItem,
+  CategoryItem,
+  ProductItem,
+  ServiceItem,
+  AdoptionCampaignData,
+  OfferBannerData,
+  UserProfile,
+} from '../types';
 
-export const USER_PROFILE = {
-  name: 'João',
-  avatarUrl: '',
+export const USER_PROFILE: UserProfile = {
+  name: 'Mariana',
+  avatarUrl: '/images/desktop/avatar-mariana.png',
 };
 
-export const CATEGORIES: CategoryItem[] = [
+export const QUICK_CATEGORIES: QuickCategoryItem[] = [
   {
     id: 'produtos',
     label: 'Produtos',
-    iconSrc: '/images/cat-produtos.png',
-    bgColor: '#e5eefb',
-    iconColor: '#3a86ff',
+    description: 'Tudo que seu pet ama',
+    iconName: 'ShoppingBag',
+    bgLightColor: '#e0f2fe',
+    iconColor: '#0284c7',
   },
   {
     id: 'servicos',
     label: 'Serviços',
-    iconSrc: '/images/cat-servicos.png',
-    bgColor: '#e0f6f1',
-    iconColor: '#00bfa5',
+    description: 'Profissionais confiáveis',
+    iconName: 'Scissors',
+    bgLightColor: '#fce7f3',
+    iconColor: '#db2777',
   },
   {
     id: 'adote',
     label: 'Adote',
-    iconSrc: '/images/cat-adote.png',
-    bgColor: '#f9e9eb',
-    iconColor: '#fe6c70',
+    description: 'Seu novo melhor amigo',
+    iconName: 'HeartHandshake',
+    bgLightColor: '#dcfce7',
+    iconColor: '#16a34a',
   },
   {
     id: 'apoie',
     label: 'Apoie',
-    iconSrc: '/images/cat-apoie.png',
-    bgColor: '#f9f3e1',
-    iconColor: '#ffb800',
+    description: 'Ajude ONGs locais',
+    iconName: 'Gift',
+    bgLightColor: '#fef3c7',
+    iconColor: '#d97706',
   },
 ];
 
-export const SEARCH_CATEGORIES = [
+export const CATEGORIES: CategoryItem[] = [
+  { id: 'produtos', label: 'Produtos', bgColor: '#e5eefb', iconColor: '#3a86ff' },
+  { id: 'servicos', label: 'Serviços', bgColor: '#e0f6f1', iconColor: '#00bfa5' },
+  { id: 'adote', label: 'Adote', bgColor: '#f9e9eb', iconColor: '#fe6c70' },
+  { id: 'apoie', label: 'Apoie', bgColor: '#f9f3e1', iconColor: '#ffb800' },
+];
+
+export const HOME_FEATURED_PRODUCTS: ProductItem[] = [
+  {
+    id: 'racao-premium-caes-15kg',
+    name: 'Ração Premium Cães Adultos 15kg',
+    category: 'Rações',
+    price: 249.90,
+    rating: 4.9,
+    reviewsCount: 120,
+    imageUrl: '/images/desktop/prod-racao.png',
+    isFavorite: false,
+    description: 'Formulada cientificamente para cães adultos de porte médio a grande. Contém proteínas selecionadas de alta digestibilidade, antioxidantes naturais para suporte imunológico e ômega 3 e 6 para uma pelagem brilhante e saudável. Sem corantes artificiais.',
+    specs: {
+      'Peso da Embalagem': '15 kg',
+      'Idade Recomendada': 'Cães Adultos de 1 a 7 anos',
+      'Porte': 'Médio, Grande, Gigante',
+      'Sabor': 'Frango, Arroz e Vegetais selecionados',
+      'Marca': 'PetConnect BioCuidado',
+    },
+  },
+  {
+    id: 'brinquedo-mordedor-borracha',
+    name: 'Brinquedo Mordedor Interativo de Borracha',
+    category: 'Brinquedos',
+    price: 49.90,
+    rating: 4.8,
+    reviewsCount: 85,
+    imageUrl: '/images/desktop/prod-brinquedo.png',
+    isFavorite: false,
+    description: 'Brinquedo mordedor com textura texturizada que massageia gengivas e alivia o estresse e a ansiedade de separação de cães de todas as idades.',
+    specs: {
+      'Material': 'Borracha Atóxica Ultra-Resistente',
+      'Porte Indicado': 'Todos os portes',
+    },
+  },
+  {
+    id: 'arranhador-torre-gatos',
+    name: 'Arranhador Torre Moderno para Gatos',
+    category: 'Acessórios',
+    price: 189.90,
+    rating: 4.7,
+    reviewsCount: 42,
+    imageUrl: '/images/desktop/prod-arranhador.png',
+    isFavorite: false,
+    description: 'Torre de arranhar em madeira maciça e sisal premium com múltiplos níveis e mirante acolchoado para descanso e diversão dos felinos.',
+    specs: {
+      'Material': 'Madeira de Reflorestamento e Sisal',
+      'Altura': '110 cm',
+    },
+  },
+  {
+    id: 'cama-ortopedica-comfort-grande',
+    name: 'Cama Ortopédica Comfort Grande',
+    category: 'Acessórios',
+    price: 299.90,
+    rating: 5.0,
+    reviewsCount: 98,
+    imageUrl: '/images/desktop/prod-cama.png',
+    isFavorite: false,
+    description: 'Cama com espuma viscoelástica que alivia pontos de pressão nas articulações, tecido impermeável e capa removível e lavável.',
+    specs: {
+      'Dimensões': '100 x 80 x 20 cm',
+      'Porte Indicado': 'Médio e Grande',
+    },
+  },
+];
+
+export const ALL_PRODUCTS: ProductItem[] = HOME_FEATURED_PRODUCTS;
+export const FEATURED_PRODUCTS: ProductItem[] = HOME_FEATURED_PRODUCTS;
+
+export const SEARCH_CATEGORIES: string[] = [
   'Todos',
-  'Ração',
+  'Rações',
   'Brinquedos',
   'Higiene',
   'Acessórios',
 ];
 
-export const ALL_PRODUCTS: ProductItem[] = [
+export const HOME_SERVICES: ServiceItem[] = [
   {
-    id: 'shampoo-neutro',
-    name: 'Shampoo Neutro Pet',
-    category: 'Higiene',
-    price: 45.00,
+    id: 'dr-gustavo-silva',
+    name: 'Dr. Gustavo Silva - Clínica Geral',
+    category: 'veterinario',
+    categoryLabel: 'Veterinário',
+    rating: 4.9,
+    reviewsCount: 150,
+    distance: 'A 1.2 km de você',
+    isHomeService: true,
+    imageUrl: '/images/desktop/service-gustavo.png',
+    buttonText: 'Agendar',
+  },
+  {
+    id: 'petshop-amigo-fiel',
+    name: 'Pet Shop Amigo Fiel - Estética',
+    category: 'banho-tosa',
+    categoryLabel: 'Banho & Tosa',
     rating: 4.8,
-    reviewsCount: 86,
-    imageUrl: '/images/shampoo-neutro.png',
-    isFavorite: false,
-    description: 'Shampoo suave hipoalergênico com extrato natural para cães e gatos de todas as raças. Limpeza profunda que respeita o pH da pele do animal.',
-    specs: {
-      'Capacidade': '500ml',
-      'Material': 'Fórmula Vegana',
-    },
-  },
-  {
-    id: 'varinha-gatos',
-    name: 'Varinha para Gatos',
-    category: 'Brinquedos',
-    price: 19.90,
-    rating: 4.9,
-    reviewsCount: 215,
-    imageUrl: '/images/varinha-gatos.png',
-    isFavorite: true,
-    description: 'Varinha interativa com penas coloridas e guizo para estimular os instintos de caça, agilidade e exercícios diários do seu felino.',
-    specs: {
-      'Capacidade': 'Haste 60cm',
-      'Material': 'Madeira e Penas Naturais',
-    },
-  },
-  {
-    id: 'cama-conforto',
-    name: 'Cama Conforto M',
-    category: 'Acessórios',
-    price: 129.90,
-    rating: 4.6,
-    reviewsCount: 94,
-    imageUrl: '/images/cama-conforto.png',
-    isFavorite: false,
-    description: 'Cama circular ultra macia com enchimento ortopédico respirável. Proporciona alívio nas articulações e máximo aconchego para cães e gatos.',
-    specs: {
-      'Capacidade': 'Porte Pequeno e Médio',
-      'Material': 'Algodão e Espuma Soft',
-    },
-  },
-  {
-    id: 'fonte-agua',
-    name: 'Fonte de Água Bivolt',
-    category: 'Acessórios',
-    price: 89.90,
-    rating: 4.7,
-    reviewsCount: 142,
-    imageUrl: '/images/fonte-agua-large.png',
-    isFavorite: false,
-    description: 'Fonte de água automática com filtro de carvão ativado. Mantém a água do seu pet sempre fresca, limpa e oxigenada, estimulando um maior consumo de água diário para cães e gatos.',
-    specs: {
-      'Capacidade': '2.5 Litros',
-      'Material': 'Plástico BPA-Free',
-    },
-  },
-  {
-    id: 'racao-premium',
-    name: 'Ração Premium Cães',
-    category: 'Ração',
-    price: 149.90,
-    rating: 4.9,
-    reviewsCount: 310,
-    imageUrl: '/images/racao-premium.png',
-    isFavorite: true,
-    description: 'Alimento completo super premium para cães adultos de médio e grande porte, com ômega 3 e 6 para pelos brilhantes e digestão equilibrada.',
-    specs: {
-      'Capacidade': '15kg',
-      'Material': 'Frango e Arroz Integral',
-    },
-  },
-  {
-    id: 'brinquedo-mordedor',
-    name: 'Brinquedo Mordedor',
-    category: 'Brinquedos',
-    price: 29.90,
-    rating: 4.7,
-    reviewsCount: 78,
-    imageUrl: '/images/brinquedo-mordedor.png',
-    isFavorite: false,
-    description: 'Mordedor espiralado com textura massageadora de gengiva. Auxilia na higiene bucal e combate o estresse do pet com material resistente.',
-    specs: {
-      'Capacidade': 'Diâmetro 8cm',
-      'Material': 'Borracha Atóxica',
-    },
+    reviewsCount: 210,
+    distance: 'A 2.5 km de você',
+    isHomeService: true,
+    imageUrl: '/images/desktop/service-amigo-fiel.png',
+    buttonText: 'Agendar',
   },
 ];
 
-export const FEATURED_PRODUCTS: ProductItem[] = [
-  ALL_PRODUCTS[4], // Ração Premium Cães
-  ALL_PRODUCTS[5], // Brinquedo Mordedor
-  ALL_PRODUCTS[0], // Shampoo Neutro Pet
-  ALL_PRODUCTS[3], // Fonte de Água Bivolt
-];
+export const ADOPTION_CAMPAIGN: AdoptionCampaignData = {
+  badge: 'Campanha de Adoção',
+  title: 'Mude uma vida, adote um amigo',
+  description: 'Milhares de cães e gatos em ONGs parceiras estão à procura de um lar amoroso. Todos os pets são vacinados, castrados e acompanhados por nossa equipe veterinária parceira.',
+  imageUrl: '/images/desktop/adoption-dog.png',
+  ctaText: 'Conheça os pets',
+};
 
 export const OFFER_BANNER: OfferBannerData = {
   discountBadge: '30% OFF',
   title: 'Rações & Petiscos',
   description: 'Todo o setor com descontos especiais hoje',
-  imageUrl: '/images/banner-petiscos.png',
+  imageUrl: '/images/desktop/prod-racao.png',
   linkText: 'Ver tudo',
 };

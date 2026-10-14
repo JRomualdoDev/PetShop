@@ -1,63 +1,32 @@
-.home-page-content {
+.desktop-home-page {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding-bottom: 32px;
-  box-sizing: border-box;
+  background-color: var(--color-bg-app);
 }
 
 .home-section {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
   width: 100%;
+  padding: 24px 0;
 }
 
-.home-section.offers-section {
-  margin-bottom: 12px;
-}
-
-/* Products List: Mobile is horizontal swipe, Tablet & Desktop are responsive grid */
-.products-horizontal-list {
-  display: flex;
-  align-items: stretch;
-  gap: 16px;
-  padding: 0 24px;
+.home-section .section-container {
+  max-width: var(--content-max-width);
   width: 100%;
-  box-sizing: border-box;
-  overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
-.products-horizontal-list::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+/* Products Grid: 4 equal columns */
+.products-grid-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
-/* Tablet: 3 columns grid */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .products-horizontal-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    overflow-x: visible;
-  }
-}
-
-/* Desktop: 4 columns grid */
-@media (min-width: 1024px) {
-  .products-horizontal-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    overflow-x: visible;
-  }
-}
-
-.offer-banner-wrapper {
-  padding: 0 24px;
-  width: 100%;
-  box-sizing: border-box;
+/* Services Grid: 2 equal columns */
+.services-grid-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }

@@ -1,19 +1,22 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import './SectionHeader.css';
 
 interface SectionHeaderProps {
   title: string;
   actionText?: string;
   onActionClick?: () => void;
+  showArrow?: boolean;
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
-  actionText = 'Ver tudo',
+  actionText,
   onActionClick,
+  showArrow = true,
 }) => {
   return (
-    <div className="section-header">
+    <div className="desktop-section-header">
       <h2 className="section-title">{title}</h2>
       {actionText && (
         <button
@@ -21,7 +24,8 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
           className="section-action-link"
           onClick={onActionClick}
         >
-          {actionText}
+          <span>{actionText}</span>
+          {showArrow && <ArrowRight size={16} className="action-arrow-icon" />}
         </button>
       )}
     </div>

@@ -80,7 +80,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
 
       {/* Category Filter Pills (Horizontal scroll) */}
       <div className="category-pills-row">
-        {SEARCH_CATEGORIES.map((category) => {
+        {SEARCH_CATEGORIES.map((category: string) => {
           const isActive = selectedCategory === category;
           return (
             <button

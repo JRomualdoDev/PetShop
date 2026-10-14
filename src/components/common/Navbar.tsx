@@ -1,112 +1,102 @@
 import React from 'react';
-import { Search, Heart, ShoppingBag, User, PawPrint } from 'lucide-react';
-import type { NavTabId, CategoryId } from '../../types';
+import { Search, Heart, ShoppingBag, PawPrint } from 'lucide-react';
+import type { NavPageId } from '../../types';
+import { USER_PROFILE } from '../../data/mockData';
 import './Navbar.css';
 
 interface NavbarProps {
-  activeTab: NavTabId;
-  onTabChange: (tab: NavTabId) => void;
-  onSelectCategory?: (category: CategoryId) => void;
-  searchQuery?: string;
-  onSearchChange?: (val: string) => void;
-  onSearchSubmit?: () => void;
+  currentPage: NavPageId;
+  onNavigate: (page: NavPageId) => void;
   cartCount?: number;
   favoritesCount?: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  activeTab,
-  onTabChange,
-  onSelectCategory,
-  searchQuery = '',
-  onSearchChange,
-  onSearchSubmit,
-  cartCount = 0,
+  currentPage,
+  onNavigate,
+  cartCount = 3,
   favoritesCount = 0,
 }) => {
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onSearchSubmit) onSearchSubmit();
-  };
-
   return (
-    <header className="site-header">
+    <header className="site-header" id="main-header">
       <div className="site-header-container">
         {/* Brand Logo */}
-        <div
-          className="brand-logo"
-          onClick={() => onTabChange('inicio')}
-          role="button"
-          tabIndex={0}
+        <button
+          type="button"
+          className="brand-logo-btn"
+          onClick={() => onNavigate('inicio')}
+          aria-label="PetConnect Página Inicial"
         >
           <div className="brand-logo-icon">
             <PawPrint size={22} className="logo-paw-svg" />
           </div>
-          <div className="brand-logo-text">
-            <span className="brand-name">PetConnect</span>
-            <span className="brand-tagline">Cuidado & Pet Shop</span>
-          </div>
-        </div>
-
-        {/* Desktop Search Bar (Tablet & Desktop) */}
-        <form className="desktop-search-form" onSubmit={handleSearchSubmit}>
-          <Search className="desktop-search-icon" size={18} />
-          <input
-            type="text"
-            className="desktop-search-input"
-            placeholder="Buscar produtos, serviços ou animais..."
-            value={searchQuery}
-            onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-          />
-        </form>
+          <span className="brand-name">PetConnect</span>
+        </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="desktop-nav-links" aria-label="Navegação desktop">
+        <nav className="desktop-nav-menu" aria-label="Navegação Principal">
           <button
             type="button"
-            className={`nav-link-btn ${activeTab === 'inicio' ? 'active' : ''}`}
-            onClick={() => onTabChange('inicio')}
+            className={`nav-menu-link ${currentPage === 'inicio' ? 'active' : ''}`}
+            onClick={() => onNavigate('inicio')}
           >
             Início
           </button>
           <button
             type="button"
-            className={`nav-link-btn ${activeTab === 'buscar' ? 'active' : ''}`}
-            onClick={() => onTabChange('buscar')}
+            className={`nav-menu-link ${currentPage === 'produtos' ? 'active' : ''}`}
+            onClick={() => onNavigate('produtos')}
           >
             Produtos
           </button>
           <button
             type="button"
-            className="nav-link-btn"
-            onClick={() => onSelectCategory && onSelectCategory('servicos')}
+            className={`nav-menu-link ${currentPage === 'servicos' ? 'active' : ''}`}
+            onClick={() => onNavigate('servicos')}
           >
             Serviços
           </button>
           <button
             type="button"
-            className="nav-link-btn"
-            onClick={() => onSelectCategory && onSelectCategory('adote')}
+            className={`nav-menu-link ${currentPage === 'adocao' ? 'active' : ''}`}
+            onClick={() => onNavigate('adocao')}
           >
             Adoção
           </button>
           <button
             type="button"
-            className="nav-link-btn"
-            onClick={() => onSelectCategory && onSelectCategory('apoie')}
+            className={`nav-menu-link ${currentPage === 'apoie' ? 'active' : ''}`}
+            onClick={() => onNavigate('apoie')}
           >
             Apoie
           </button>
+          <button
+            type="button"
+            className={`nav-menu-link ${currentPage === 'chat' ? 'active' : ''}`}
+            onClick={() => onNavigate('chat')}
+          >
+            Chat
+          </button>
         </nav>
 
-        {/* Header Action Buttons */}
+        {/* Header Right Actions */}
         <div className="header-actions">
           <button
             type="button"
-            className={`header-action-btn ${activeTab === 'favoritos' ? 'active' : ''}`}
-            onClick={() => onTabChange('favoritos')}
+            className="action-icon-btn"
+            onClick={() => onNavigate('produtos')}
+            title="Buscar"
+            aria-label="Buscar produtos e serviços"
+          >
+            <Search size={20} />
+          </button>
+
+          <button
+            type="button"
+            className={`action-icon-btn ${favoritesCount > 0 ? 'has-badge' : ''}`}
+            onClick={() => onNavigate('favoritos')}
             title="Favoritos"
-            aria-label="Favoritos"
+            aria-label="Meus favoritos"
           >
             <Heart size={20} />
             {favoritesCount > 0 && <span className="action-badge">{favoritesCount}</span>}
@@ -114,25 +104,31 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             type="button"
-            className="header-action-btn cart-btn"
-            onClick={() => onTabChange('buscar')}
-            title="Carrinho de Compras"
-            aria-label="Carrinho"
+            className="action-icon-btn cart-btn"
+            onClick={() => onNavigate('produtos')}
+            title="Carrinho de compras"
+            aria-label="Carrinho com itens"
           >
             <ShoppingBag size={20} />
-            {cartCount > 0 && <span className="action-badge">{cartCount}</span>}
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </button>
 
           <button
             type="button"
-            className={`header-user-btn ${activeTab === 'perfil' ? 'active' : ''}`}
-            onClick={() => onTabChange('perfil')}
-            aria-label="Perfil do usuário"
+            className="user-profile-btn"
+            onClick={() => onNavigate('perfil')}
+            aria-label={`Perfil de ${USER_PROFILE.name}`}
           >
-            <div className="user-avatar-circle">
-              <User size={16} />
-            </div>
-            <span className="user-name-text">João</span>
+            <img
+              src={USER_PROFILE.avatarUrl}
+              alt={USER_PROFILE.name}
+              className="user-avatar-img"
+              onError={(e) => {
+                // Fallback gracefully if image fails
+                (e.target as HTMLElement).style.display = 'none';
+              }}
+            />
+            <span className="user-name-label">{USER_PROFILE.name}</span>
           </button>
         </div>
       </div>
