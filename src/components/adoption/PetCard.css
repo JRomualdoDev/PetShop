@@ -1,0 +1,161 @@
+/* ==========================================================================
+   PetCard Component Styles — Pixel-faithful to design/Desktop/adocao.png
+   ========================================================================== */
+
+.desktop-pet-card {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.desktop-pet-card:hover {
+  transform: translateY(-3px);
+  border-color: #99f6e4;
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.08);
+}
+
+.pet-card-media {
+  position: relative;
+  width: 100%;
+  height: 218px;
+  background-color: #f1f5f9;
+  overflow: hidden;
+}
+
+.pet-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.desktop-pet-card:hover .pet-card-img {
+  transform: scale(1.02);
+}
+
+/* Floating Favorite Heart Button */
+.pet-favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+  z-index: 5;
+}
+
+.pet-favorite-btn:hover {
+  transform: scale(1.1);
+  background-color: #f8fafc;
+}
+
+.pet-favorite-btn .heart-icon {
+  color: #334155;
+  fill: none;
+  transition: all 0.18s ease;
+}
+
+.pet-favorite-btn .heart-icon.filled {
+  color: #ef4444;
+  fill: #ef4444;
+}
+
+/* Card Body */
+.pet-card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pet-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.pet-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-slate-900, #0f172a);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Gender Badges */
+.pet-gender-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: var(--radius-full, 9999px);
+  text-transform: capitalize;
+}
+
+.pet-gender-badge.macho {
+  background-color: #e0f2fe;
+  color: #0284c7;
+}
+
+.pet-gender-badge.femea {
+  background-color: #fce7f3;
+  color: #db2777;
+}
+
+.pet-age-text {
+  font-size: 14px;
+  color: var(--color-slate-500, #64748b);
+  margin-bottom: 4px;
+}
+
+.pet-location-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--color-slate-500, #64748b);
+  margin-bottom: 18px;
+}
+
+.pet-pin-icon {
+  color: var(--color-slate-400, #94a3b8);
+  flex-shrink: 0;
+}
+
+/* Quero Adotar Button */
+.pet-adopt-btn {
+  width: 100%;
+  background-color: #ccfbf1;
+  color: #0f766e;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: center;
+  margin-top: auto;
+}
+
+.pet-adopt-btn:hover {
+  background-color: #99f6e4;
+  color: #0d5c52;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.18);
+}

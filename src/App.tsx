@@ -5,8 +5,9 @@ import { HomePage } from './pages/HomePage';
 import { ProductsPage } from './pages/ProductsPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { ServicesPage } from './pages/ServicesPage';
+import { AdoptionPage } from './pages/AdoptionPage';
 import { CATALOG_PRODUCTS } from './data/mockData';
-import type { NavPageId, CategoryId, ProductItem } from './types';
+import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
 
 export function App() {
@@ -67,6 +68,14 @@ export function App() {
     showToast(`${quantity}x "${product.name}" adicionado ao carrinho com sucesso!`);
   };
 
+  const handleAdoptRequest = (pet: PetItem) => {
+    showToast(`Solicitação de adoção para ${pet.name} registrada com sucesso!`);
+  };
+
+  const handleSelectPet = (petId: string) => {
+    showToast(`Visualizando perfil do pet: ${petId}`);
+  };
+
   const currentSelectedProduct =
     CATALOG_PRODUCTS.find((p) => p.id === selectedProductId) || CATALOG_PRODUCTS[0];
 
@@ -111,13 +120,20 @@ export function App() {
           <ServicesPage onBookService={handleBookService} />
         )}
 
+        {currentPage === 'adocao' && (
+          <AdoptionPage
+            onAdoptRequest={handleAdoptRequest}
+            onSelectPet={handleSelectPet}
+          />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
-          currentPage !== 'servicos' && (
+          currentPage !== 'servicos' &&
+          currentPage !== 'adocao' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
-                {currentPage === 'adocao' && 'Adoção de Pets'}
                 {currentPage === 'apoie' && 'Apoie uma Causa'}
                 {currentPage === 'chat' && 'Chat de Atendimento'}
                 {currentPage === 'favoritos' && 'Meus Favoritos'}

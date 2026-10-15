@@ -72,6 +72,22 @@ export interface AdoptionCampaignData {
   ctaText: string;
 }
 
+export type PetSpecies = 'cachorros' | 'gatos' | 'outros';
+export type PetGender = 'Macho' | 'Fêmea';
+
+export interface PetItem {
+  id: string;
+  name: string;
+  species: PetSpecies;
+  gender: PetGender;
+  age: string;
+  location: string;
+  imageUrl: string;
+  isFavorite?: boolean;
+  breed?: string;
+  description?: string;
+}
+
 export interface OfferBannerData {
   discountBadge: string;
   title: string;

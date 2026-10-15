@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
 > **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 4. Serviços Profissionais Desktop (**Concluída**)  
-> **Próxima Página**: 5. Adoção de Pets Desktop (`design/Desktop/adocao.png`)  
+> **Página Atual**: 6. Detalhes do Animal Desktop (`design/Desktop/detalhes-do-animal.png`) (**Em andamento**)  
+> **Página Anterior**: 5. Adoção de Pets Desktop (**Concluída**)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -15,8 +15,8 @@
 | 2 | **Catálogo de Produtos** | `design/Desktop/produtos.png` (1440x1572) | `design/mobile/busca.png` (402x874) | **Concluída** | Não iniciada |
 | 3 | **Detalhes do Produto** | `design/Desktop/detalhes-do-produto.png` (1440x2088) | `design/mobile/detalhes-produto.png` (402x874) | **Concluída** | Não iniciada |
 | 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | **Concluída** | Não iniciada |
-| 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | **Próxima (Aguardando aprovação)** | Não iniciada |
-| 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | Não iniciada | Não iniciada |
+| 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | **Concluída** | Não iniciada |
+| 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | **Em andamento** | Não iniciada |
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | Não iniciada | Não iniciada |
 | 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | Não iniciada | Não iniciada |
 | 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | Não iniciada | Não iniciada |
@@ -83,6 +83,44 @@
 
 ---
 
-## 6. Próximos Passos (Fase A)
-Após aprovação desta entrega, iniciaremos a implementação da **Página 5: Adoção de Pets Desktop (`design/Desktop/adocao.png`)**.
+## 6. Relatório de Execução — Página 5: Adoção de Pets Desktop (`design/Desktop/adocao.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Rota `adocao` ativada com sublinhado teal `#0f766e` e persistência do contador do carrinho (3).
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com alinhamento pixel-perfect a partir de 1264px até 1628px.
+- **`Toast` (`src/App.tsx`)**: Alertas interativos ao favoritar ou solicitar adoção de um pet.
+
+### Componentes e Telas Implementadas
+- **`PetCard` (`src/components/adoption/PetCard.tsx`, `PetCard.css`)**:
+  - Imagem limpa sem artefatos ou ghost buttons (302 × 218px com `border-radius: 16px`).
+  - Botão flutuante de favoritar interativo no topo direito com animação suave e microinteração.
+  - Título com nome do pet e badge de gênero (`Macho` #e0f2fe/#0284c7 ou `Fêmea` #fce7f3/#db2777).
+  - Metadados de idade e localização com ícone de pin `MapPin`.
+  - Botão CTA `Quero Adotar` em pílula verde menta `#ccfbf1` com tipografia `#0f766e`.
+- **`AdoptionPage` (`src/pages/AdoptionPage.tsx`, `AdoptionPage.css`)**:
+  - Título `Encontre um novo amigo 🐾` e subtítulo com tipografia e espaçamento idênticos ao Figma.
+  - Cartão de filtros unificado:
+    - Pílulas de espécies (`Todos` ativo em `#0f766e`, `Cachorros`, `Gatos`, `Outros`).
+    - Menu suspenso de filtro por localização (`📍 Filtrar por localização: São Paulo - SP ˅`) com seleção interativa de cidades.
+  - Grade de 4 colunas com 8 animais:
+    1. *Baily* (Cachorro, Macho, 2 anos, São Paulo - SP)
+    2. *Mel* (Gato, Fêmea, 5 meses, Rio de Janeiro - RJ)
+    3. *Fred* (Cachorro, Macho, 1 ano, Belo Horizonte - MG)
+    4. *Luna* (Gato, Fêmea, 3 anos, São Paulo - SP)
+    5. *Pipoca* (Cachorro, Macho, 1.5 anos, Campinas - SP)
+    6. *Amora* (Cachorro, Fêmea, 2.5 anos, Curitiba - PR)
+    7. *Thor* (Cachorro, Macho, 4 anos, Porto Alegre - RS)
+    8. *Clara* (Gato, Fêmea, 10 meses, São Paulo - SP)
+  - Modal interativo de adoção completo com formulário de contato, tipo de residência e mensagem.
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 1628px arquivada em `public/shot-adocao-1440-actual.png`, 100% fiel à referência original `design/Desktop/adocao.png`.
+- Lint: 0 erros e 0 avisos em 42 arquivos.
+- Build de produção: concluído com sucesso em 462ms.
+
+---
+
+## 7. Próximos Passos (Fase A)
+Iniciando a implementação da **Página 6: Detalhes do Animal Desktop (`design/Desktop/detalhes-do-animal.png`)**.
+
 
