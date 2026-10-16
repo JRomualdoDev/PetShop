@@ -8,6 +8,7 @@ import { ServicesPage } from './pages/ServicesPage';
 import { AdoptionPage } from './pages/AdoptionPage';
 import { PetDetailPage } from './pages/PetDetailPage';
 import { CausesPage } from './pages/CausesPage';
+import { ChatPage } from './pages/ChatPage';
 import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
@@ -150,16 +151,23 @@ export function App() {
           <CausesPage onShowToast={showToast} />
         )}
 
+        {currentPage === 'chat' && (
+          <ChatPage
+            onNavigate={handleNavigate}
+            onShowToast={showToast}
+          />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
           currentPage !== 'servicos' &&
           currentPage !== 'adocao' &&
           currentPage !== 'detalhes-animal' &&
-          currentPage !== 'apoie' && (
+          currentPage !== 'apoie' &&
+          currentPage !== 'chat' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
-                {currentPage === 'chat' && 'Chat de Atendimento'}
                 {currentPage === 'favoritos' && 'Meus Favoritos'}
                 {currentPage === 'perfil' && 'Perfil de Mariana'}
               </h2>

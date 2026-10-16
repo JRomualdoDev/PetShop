@@ -119,3 +119,10 @@ export interface CauseItem {
   imageUrl: string;
   category?: string;
 }
+
+export interface ChatMessage {
+  id: string;
+  sender: 'bot' | 'user';
+  text: string;
+  time: string;
+}

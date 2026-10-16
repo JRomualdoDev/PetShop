@@ -8,6 +8,7 @@ import type {
   UserProfile,
   PetItem,
   CauseItem,
+  ChatMessage,
 } from '../types';
 
 export const USER_PROFILE: UserProfile = {
@@ -527,4 +528,32 @@ export const COMMUNITY_CAUSES: CauseItem[] = [
     imageUrl: '/images/desktop/causa-alimentacao.png',
     category: 'Alimentação & Cuidados',
   },
+];
+
+export const INITIAL_CHAT_MESSAGES: ChatMessage[] = [
+  {
+    id: 'msg-1',
+    sender: 'bot',
+    text: 'Olá! 👋 Como posso ajudar?',
+    time: '10:30',
+  },
+  {
+    id: 'msg-2',
+    sender: 'user',
+    text: 'Quero encontrar um veterinário.',
+    time: '10:31',
+  },
+  {
+    id: 'msg-3',
+    sender: 'bot',
+    text: 'Claro! Posso ajudar você a encontrar serviços próximos.',
+    time: '10:31',
+  },
+];
+
+export const CHAT_QUICK_ACTIONS: string[] = [
+  'Encontrar veterinário',
+  'Consultar pedido',
+  'Produtos',
+  'Adoção',
 ];

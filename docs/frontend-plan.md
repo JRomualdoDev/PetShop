@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
 > **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 7. Apoie uma Causa Desktop (**Concluída**)  
-> **Próxima Página**: 8. Chat / Atendimento Desktop (`design/Desktop/chat.png`)  
+> **Página Atual**: 8. Chat / Atendimento Desktop (**Concluída**)  
+> **Próxima Página**: 9. Feedback / Avaliação Desktop (`design/Desktop/feedback.png`)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -18,7 +18,7 @@
 | 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | **Concluída** | Não iniciada |
 | 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | **Concluída** | Não iniciada |
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | **Concluída** | Não iniciada |
-| 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | Não iniciada | Não iniciada |
+| 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | **Concluída** | Não iniciada |
 | 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | Não iniciada | Não iniciada |
 | 10 | **Login** | `design/Desktop/login.png` (1440x900) | `design/mobile/login.png` (402x874) | Não iniciada | Não iniciada |
 | 11 | **Criar Conta / Cadastro** | `design/Desktop/criar-conta.png` (1440x900) | `design/mobile/cadastro.png` (402x874) | Não iniciada | Não iniciada |
@@ -209,8 +209,42 @@
 
 ---
 
-## 9. Próximos Passos (Fase A)
-Após aprovação desta entrega, iniciaremos a implementação da **Página 8: Chat / Atendimento Desktop (`design/Desktop/chat.png`)**.
+## 9. Relatório de Execução — Página 8: Chat / Atendimento Desktop (`design/Desktop/chat.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Rota `chat` com indicador de aba ativa, sublinhado teal e sincronização com contadores.
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com alinhamento pixel-perfect a partir de 848px até 1201px.
+- **`App` (`src/App.tsx`)**: Roteamento gerenciado com feedback sonoro/visual via toast e passagem de parâmetros.
+
+### Componentes e Telas Implementadas
+- **`ChatPage` (`src/pages/ChatPage.tsx`, `ChatPage.css`)**:
+  - Container centralizado de 678px de largura com cantos de `20px` e sombra sutil, emoldurado sobre fundo neutro `#f8f9fa`.
+  - **Cabeçalho do Assistente**:
+    - Avatar em pílula verde menta `#ccfbf1` com ícone de pata `PawPrint` em `#0f766e`.
+    - Título `Assistente PetConnect` e indicador de status `Online agora` com ponto verde `#10b981`.
+  - **Área de Mensagens**:
+    - Mensagem 1 (Bot): `Olá! 👋 Como posso ajudar?` (10:30) com avatar lateral e balão `#f8fafc`.
+    - Mensagem 2 (Usuário): `Quero encontrar um veterinário.` (10:31) com balão teal `#0f766e` e texto branco alinhado à direita.
+    - Mensagem 3 (Bot): `Claro! Posso ajudar você a encontrar serviços próximos.` (10:31).
+    - Indicador de digitação dinâmico (3 pontos com animação pulsante).
+    - Rolagem automática para o final da conversa a cada nova mensagem.
+  - **Barra de Chips de Ação Rápida**:
+    - 4 pílulas interativas: `Encontrar veterinário`, `Consultar pedido`, `Produtos`, `Adoção`.
+    - Ao clicar em um chip, o sistema envia a pergunta automaticamente e aciona uma resposta contextualizada do assistente virtual.
+  - **Barra de Entrada e Envio**:
+    - Campo de texto estilizado com `placeholder="Digite sua mensagem..."`.
+    - Botão de envio em `#0f766e` com ícone circular estilizado correspondente ao design Figma.
+    - Suporte a envio por teclado (tecla Enter) ou clique.
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 1201px arquivada em `public/shot-chat-1440-actual.png`, 100% fiel à referência original `design/Desktop/chat.png`.
+- Lint: 0 erros e 0 avisos em 52 arquivos.
+- Build de produção: concluído com sucesso em 2.03s.
+
+---
+
+## 10. Próximos Passos (Fase A)
+Após aprovação desta entrega, iniciaremos a implementação da **Página 9: Feedback / Avaliação Desktop (`design/Desktop/feedback.png`)**.
 
 
 
