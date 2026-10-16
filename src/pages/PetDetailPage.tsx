@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ChevronLeft, MapPin, Check, X, Heart } from 'lucide-react';
 import { ADOPTION_PETS, RECOMMENDED_PETS_DETAIL } from '../data/mockData';
 import type { PetItem } from '../types';
@@ -27,6 +27,7 @@ export const PetDetailPage: React.FC<PetDetailPageProps> = ({
     '/images/desktop/pet-detail-luna-thumb-3.png',
   ];
 
+  const [prevPetId, setPrevPetId] = useState(pet.id);
   const [selectedImage, setSelectedImage] = useState<string>(
     pet.detailImageUrl || pet.imageUrl || '/images/desktop/pet-detail-luna-main.png'
   );
@@ -35,10 +36,11 @@ export const PetDetailPage: React.FC<PetDetailPageProps> = ({
   const [adoptionSubmitted, setAdoptionSubmitted] = useState<boolean>(false);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
-  useEffect(() => {
+  if (pet.id !== prevPetId) {
+    setPrevPetId(pet.id);
     setSelectedImage(pet.detailImageUrl || pet.imageUrl || '/images/desktop/pet-detail-luna-main.png');
     setSelectedThumbIndex(0);
-  }, [pet.id, pet.detailImageUrl, pet.imageUrl]);
+  }
 
   const handleThumbClick = (index: number, imgSrc: string) => {
     setSelectedThumbIndex(index);

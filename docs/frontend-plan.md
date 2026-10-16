@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
 > **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 6. Detalhes do Animal Desktop (**Concluída**)  
-> **Próxima Página**: 7. Apoie uma Causa Desktop (`design/Desktop/apoie-uma-causa.png`)  
+> **Página Atual**: 7. Apoie uma Causa Desktop (**Concluída**)  
+> **Próxima Página**: 8. Chat / Atendimento Desktop (`design/Desktop/chat.png`)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -17,7 +17,7 @@
 | 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | **Concluída** | Não iniciada |
 | 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | **Concluída** | Não iniciada |
 | 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | **Concluída** | Não iniciada |
-| 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | Não iniciada | Não iniciada |
+| 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | **Concluída** | Não iniciada |
 | 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | Não iniciada | Não iniciada |
 | 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | Não iniciada | Não iniciada |
 | 10 | **Login** | `design/Desktop/login.png` (1440x900) | `design/mobile/login.png` (402x874) | Não iniciada | Não iniciada |
@@ -161,8 +161,56 @@
 
 ---
 
-## 8. Próximos Passos (Fase A)
-Após aprovação desta entrega, iniciaremos a implementação da **Página 7: Apoie uma Causa Desktop (`design/Desktop/apoie-uma-causa.png`)**.
+## 8. Relatório de Execução — Página 7: Apoie uma Causa Desktop (`design/Desktop/apoie-uma-causa.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Rota `apoie` com sublinhado teal e cor ativa `#0f766e`, mantendo busca, favoritos, carrinho e perfil sincronizados.
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com alinhamento pixel-perfect a partir de 849px até 1202px.
+- **`App` (`src/App.tsx`)**: Gerenciamento integrado de rota `apoie`, suporte a notificações de sucesso e passagem de feedback.
+
+### Componentes e Telas Implementadas
+- **`CauseCard` (`src/components/causes/CauseCard.tsx`, `CauseCard.css`)**:
+  - Imagem de mídia superior limpa de 411 × 200px com `border-radius: 20px 20px 0 0` e transição suave de escala ao passar o mouse.
+  - Tag superior com o nome da organização em maiúsculas (`color: #0f766e`, font-size: `12px`, font-weight: `700`, letter-spacing: `0.5px`).
+  - Título da campanha em `20px` bold (`#0f172a`).
+  - Descrição detalhada da campanha com line-height `1.5` em `#475569`.
+  - Métrica de arrecadação com linha dupla:
+    - Valor arrecadado destacado à esquerda em teal `#0f766e` (`R$ {currentAmount} arrecadados`).
+    - Meta financeira à direita em cinza neutro (`Meta: R$ {targetAmount}`).
+  - Barra de progresso dinâmica:
+    - Trilho em `#e2e8f0` com altura de `8px` e `border-radius: 9999px`.
+    - Preenchimento em teal `#14b8a6` com animação suave de largura (`transition: width 0.6s`).
+  - Legenda de porcentagem (`{percentage}% arrecadado`) em `#94a3b8`.
+  - Botão de ação primário `Apoiar Causa` em teal escuro `#0f766e` com elevação e microinteração ao hover.
+- **`CausesPage` (`src/pages/CausesPage.tsx`, `CausesPage.css`)**:
+  - Fundo neutro suave `#f8f9fa` em altura calibrada com o layout Figma (1202px).
+  - Cabeçalho de página:
+    - Título principal `Ajude uma causa 💚` (32px, font-weight 800, `#0f172a`).
+    - Subtítulo `Apoie campanhas e organizações locais que lutam diariamente pela proteção e bem-estar dos animais.`
+  - Grade de 3 colunas (`1280px` de largura centralizada com gap de `24px`):
+    1. *Campanha de Castração Comunitária* (Instituto Amigos de Patas — R$ 4200 arrecadados / Meta: R$ 8000 — 53%)
+    2. *Reconstrução do Abrigo pós-chuvas* (Associação Protetora SOS Pet — R$ 12500 arrecadados / Meta: R$ 15000 — 83%)
+    3. *Alimentando 300 pets resgatados* (ONG Lar de Amor — R$ 3100 arrecadados / Meta: R$ 6000 — 52%)
+  - **Modal Interativo de Doação Completo**:
+    - Abertura suave com backdrop blur e animação de escala.
+    - Card de resumo com imagem da campanha, instituição e métricas de arrecadação.
+    - Seletor de valores com botões em pílula rápida (`R$ 20`, `R$ 50`, `R$ 100`, `R$ 200`) e campo aberto para valor personalizado.
+    - Seleção de método de pagamento (`PIX Instantâneo`, `Cartão de Crédito`, `Boleto Bancário`).
+    - Dados do apoiador (Nome, E-mail para recibo, e opção de doação anônima).
+    - Selo de confiança e segurança com criptografia de ponta a ponta.
+    - Confirmação em tempo real: incrementa o valor arrecadado diretamente no estado da página e recalcula o progresso e a porcentagem da campanha!
+    - Tela de confirmação e agradecimento com emissão de comprovante.
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 1202px arquivada em `public/shot-apoie-1440-actual.png`, 100% fiel à referência original `design/Desktop/apoie-uma-causa.png`.
+- Captura do modal interativo de apoio arquivada em `public/shot-apoie-modal-open.png`.
+- Lint: 0 erros e 0 avisos em 50 arquivos.
+- Build de produção: concluído com sucesso em 449ms.
+
+---
+
+## 9. Próximos Passos (Fase A)
+Após aprovação desta entrega, iniciaremos a implementação da **Página 8: Chat / Atendimento Desktop (`design/Desktop/chat.png`)**.
 
 
 

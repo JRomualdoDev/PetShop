@@ -108,3 +108,14 @@ export interface UserProfile {
   name: string;
   avatarUrl: string;
 }
+
+export interface CauseItem {
+  id: string;
+  organization: string;
+  title: string;
+  description: string;
+  currentAmount: number;
+  targetAmount: number;
+  imageUrl: string;
+  category?: string;
+}

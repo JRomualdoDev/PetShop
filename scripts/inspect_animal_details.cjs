@@ -14,14 +14,14 @@ async function inspect() {
   
   // Test crop around left column
   // y between 100 and 800
-  const leftTest = await sharp(srcPath)
+  await sharp(srcPath)
     .extract({ left: 70, top: 100, width: 620, height: 700 })
     .toFile(path.resolve(__dirname, '../public/images/desktop/test-animal-col1.png'));
   console.log('Saved test-animal-col1.png');
 
   // Test crop around bottom cards
   // y between 900 and 1500
-  const bottomTest = await sharp(srcPath)
+  await sharp(srcPath)
     .extract({ left: 70, top: 900, width: 1290, height: 450 })
     .toFile(path.resolve(__dirname, '../public/images/desktop/test-animal-bottom.png'));
   console.log('Saved test-animal-bottom.png');

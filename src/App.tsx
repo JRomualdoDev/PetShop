@@ -7,6 +7,7 @@ import { ProductDetailPage } from './pages/ProductDetailPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { AdoptionPage } from './pages/AdoptionPage';
 import { PetDetailPage } from './pages/PetDetailPage';
+import { CausesPage } from './pages/CausesPage';
 import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
@@ -145,15 +146,19 @@ export function App() {
           />
         )}
 
+        {currentPage === 'apoie' && (
+          <CausesPage onShowToast={showToast} />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
           currentPage !== 'servicos' &&
           currentPage !== 'adocao' &&
-          currentPage !== 'detalhes-animal' && (
+          currentPage !== 'detalhes-animal' &&
+          currentPage !== 'apoie' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
-                {currentPage === 'apoie' && 'Apoie uma Causa'}
                 {currentPage === 'chat' && 'Chat de Atendimento'}
                 {currentPage === 'favoritos' && 'Meus Favoritos'}
                 {currentPage === 'perfil' && 'Perfil de Mariana'}

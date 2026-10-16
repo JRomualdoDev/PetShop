@@ -7,6 +7,7 @@ import type {
   OfferBannerData,
   UserProfile,
   PetItem,
+  CauseItem,
 } from '../types';
 
 export const USER_PROFILE: UserProfile = {
@@ -492,5 +493,38 @@ export const RECOMMENDED_PETS_DETAIL: PetItem[] = [
     imageUrl: '/images/desktop/pet-detail-rec-luna.png',
     breed: 'Siamês',
     description: 'Luna é elegante, tranquila e sociável.',
+  },
+];
+
+export const COMMUNITY_CAUSES: CauseItem[] = [
+  {
+    id: 'campanha-castracao',
+    organization: 'INSTITUTO AMIGOS DE PATAS',
+    title: 'Campanha de Castração Comunitária',
+    description: 'Ajude-nos a financiar 100 castrações de animais de rua e de tutores de baixa renda na periferia de São Paulo.',
+    currentAmount: 4200,
+    targetAmount: 8000,
+    imageUrl: '/images/desktop/causa-castracao.png',
+    category: 'Saúde & Castração',
+  },
+  {
+    id: 'reconstrucao-abrigo',
+    organization: 'ASSOCIAÇÃO PROTETORA SOS PET',
+    title: 'Reconstrução do Abrigo pós-chuvas',
+    description: 'Nosso abrigo foi gravemente afetado pelas recentes tempestades. Precisamos de apoio para reconstruir os canis.',
+    currentAmount: 12500,
+    targetAmount: 15000,
+    imageUrl: '/images/desktop/causa-reconstrucao.png',
+    category: 'Infraestrutura & Resgate',
+  },
+  {
+    id: 'alimentando-300-pets',
+    organization: 'ONG LAR DE AMOR',
+    title: 'Alimentando 300 pets resgatados',
+    description: 'Garanta a alimentação do próximo mês para as centenas de cães e gatos sob nossos cuidados diários.',
+    currentAmount: 3100,
+    targetAmount: 6000,
+    imageUrl: '/images/desktop/causa-alimentacao.png',
+    category: 'Alimentação & Cuidados',
   },
 ];
