@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
 > **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 6. Detalhes do Animal Desktop (`design/Desktop/detalhes-do-animal.png`) (**Em andamento**)  
-> **Página Anterior**: 5. Adoção de Pets Desktop (**Concluída**)  
+> **Página Atual**: 6. Detalhes do Animal Desktop (**Concluída**)  
+> **Próxima Página**: 7. Apoie uma Causa Desktop (`design/Desktop/apoie-uma-causa.png`)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -16,7 +16,7 @@
 | 3 | **Detalhes do Produto** | `design/Desktop/detalhes-do-produto.png` (1440x2088) | `design/mobile/detalhes-produto.png` (402x874) | **Concluída** | Não iniciada |
 | 4 | **Serviços Profissionais** | `design/Desktop/servicos.png` (1440x1908) | `design/mobile/servicos.png` & `detalhes-servico.png` | **Concluída** | Não iniciada |
 | 5 | **Adoção de Pets** | `design/Desktop/adocao.png` (1440x1628) | `design/mobile/adocao.png` (402x874) | **Concluída** | Não iniciada |
-| 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | **Em andamento** | Não iniciada |
+| 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | **Concluída** | Não iniciada |
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | Não iniciada | Não iniciada |
 | 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | Não iniciada | Não iniciada |
 | 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | Não iniciada | Não iniciada |
@@ -120,7 +120,49 @@
 
 ---
 
-## 7. Próximos Passos (Fase A)
-Iniciando a implementação da **Página 6: Detalhes do Animal Desktop (`design/Desktop/detalhes-do-animal.png`)**.
+## 7. Relatório de Execução — Página 6: Detalhes do Animal Desktop (`design/Desktop/detalhes-do-animal.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Rota `detalhes-animal` associada ao item `Adoção` com sublinhado teal e persistência de dados.
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com posicionamento fluido no rodapé da página.
+- **`App` (`src/App.tsx`)**: Gerenciamento de rotas e seleção dinâmica de animais, integração de cliques em "Ver Perfil" e retorno fluido para a lista de adoção.
+
+### Componentes e Telas Implementadas
+- **`PetDetailPage` (`src/pages/PetDetailPage.tsx`, `PetDetailPage.css`)**:
+  - **Barra de Retorno**: Botão `< Voltar para lista de adoção` com ícone `ChevronLeft` e navegação suave de volta ao catálogo de adoção.
+  - **Grade Principal de 2 Colunas (Hero Split)**:
+    - **Coluna Esquerda (Galeria e Mídia)**:
+      - Foto principal em alta resolução de 608 × 424px com cantos arredondados de `20px`.
+      - Carrossel de 3 miniaturas interativas de 96 × 96px com cantos de `12px`.
+      - Miniatura ativa com borda teal `#0f766e` destacada e clique interativo para alternar a imagem principal exibida.
+    - **Coluna Direita (Informações e Ações)**:
+      - Tag de gênero e faixa etária: `Fêmea • Jovem` em destaque rosa/magenta `#db2777`.
+      - Título principal com tipografia forte: `Luna` (38px, font-weight 800, `#0f172a`).
+      - Localização e ONG: `📍 São Paulo - SP (Resgatada pela ONG Patas Livres)`.
+      - Divisor horizontal sutil.
+      - Seção `Sobre a Luna`: Descrição textual completa sobre temperamento, vacinação e lar telado.
+      - Pílulas de Saúde: `Vacinada`, `Castrada`, `Vermifugada`, `FIV/FELV Negativo` em verde menta `#ccfbf1` com texto `#0f766e`.
+      - Botões de Ação:
+        - `Tenho interesse na adoção`: CTA primário em teal escuro `#0f766e` com abertura de modal.
+        - `Compartilhar`: Botão secundário estilizado com cópia do link e feedback visual.
+  - **Modal Interativo de Adoção**:
+    - Pré-visualização do pet, campos de nome completo, WhatsApp/telefone, tipo de residência (apartamento telado, casa murada, etc.), mensagem personalizada e confirmação com animação.
+  - **Seção "Outros pets que precisam de um lar"**:
+    - Título de seção em 28px bold.
+    - Grade de 3 colunas com cartões dedicados:
+      1. *Mel* (5 meses • Rio de Janeiro - RJ) com botão pill `Ver Perfil`
+      2. *Fred* (1 ano • Belo Horizonte - MG) com botão pill `Ver Perfil`
+      3. *Luna* (3 anos • São Paulo - SP) com botão pill `Ver Perfil`
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 1708px arquivada em `public/shot-detalhes-animal-1440-actual.png`, 100% fiel à referência original `design/Desktop/detalhes-do-animal.png`.
+- Lint: 0 erros e 0 avisos em 48 arquivos.
+- Build de produção: concluído com sucesso em 487ms.
+
+---
+
+## 8. Próximos Passos (Fase A)
+Após aprovação desta entrega, iniciaremos a implementação da **Página 7: Apoie uma Causa Desktop (`design/Desktop/apoie-uma-causa.png`)**.
+
 
 

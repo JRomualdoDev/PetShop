@@ -6,7 +6,8 @@ import { ProductsPage } from './pages/ProductsPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { AdoptionPage } from './pages/AdoptionPage';
-import { CATALOG_PRODUCTS } from './data/mockData';
+import { PetDetailPage } from './pages/PetDetailPage';
+import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
 
@@ -16,6 +17,7 @@ export function App() {
 
   const [currentPage, setCurrentPage] = useState<NavPageId>(urlPage || 'inicio');
   const [selectedProductId, setSelectedProductId] = useState<string>('racao-premium-caes-15kg');
+  const [selectedPetId, setSelectedPetId] = useState<string>('luna');
   const [cartCount, setCartCount] = useState<number>(3);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -35,6 +37,7 @@ export function App() {
         'detalhes-produto': 'Detalhes do Produto',
         servicos: 'Serviços Profissionais',
         adocao: 'Adoção de Pets',
+        'detalhes-animal': 'Detalhes do Animal',
         apoie: 'Apoie uma Causa',
         chat: 'Atendimento via Chat',
         favoritos: 'Meus Favoritos',
@@ -73,11 +76,17 @@ export function App() {
   };
 
   const handleSelectPet = (petId: string) => {
-    showToast(`Visualizando perfil do pet: ${petId}`);
+    setSelectedPetId(petId);
+    handleNavigate('detalhes-animal');
   };
 
   const currentSelectedProduct =
     CATALOG_PRODUCTS.find((p) => p.id === selectedProductId) || CATALOG_PRODUCTS[0];
+
+  const currentSelectedPet =
+    ADOPTION_PETS.find((p) => p.id === selectedPetId) ||
+    ADOPTION_PETS.find((p) => p.id === 'luna') ||
+    ADOPTION_PETS[0];
 
   return (
     <div className="site-wrapper">
@@ -127,11 +136,21 @@ export function App() {
           />
         )}
 
+        {currentPage === 'detalhes-animal' && (
+          <PetDetailPage
+            pet={currentSelectedPet}
+            onBack={() => handleNavigate('adocao')}
+            onAdoptRequest={handleAdoptRequest}
+            onSelectPet={handleSelectPet}
+          />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
           currentPage !== 'servicos' &&
-          currentPage !== 'adocao' && (
+          currentPage !== 'adocao' &&
+          currentPage !== 'detalhes-animal' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
                 {currentPage === 'apoie' && 'Apoie uma Causa'}

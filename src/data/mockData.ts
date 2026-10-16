@@ -398,7 +398,19 @@ export const ADOPTION_PETS: PetItem[] = [
     age: '3 anos',
     location: 'São Paulo - SP',
     imageUrl: '/images/desktop/pet-luna.png',
+    detailImageUrl: '/images/desktop/pet-detail-luna-main.png',
     breed: 'Siamês',
+    ageCategory: 'Jovem',
+    rescueInfo: 'Resgatada pela ONG Patas Livres',
+    aboutTitle: 'Sobre a Luna',
+    longDescription:
+      'A Luna é uma gatinha siamesa de 3 anos, extremamente dócil, carinhosa e tranquila. Ela adora tirar sonecas ao sol, receber carinho atrás das orelhas e convive muito bem com outros gatos. Ela já está castrada, vacinada com as principais vacinas e com teste fiv/felv negativo. Procura um lar seguro de apartamento telado.',
+    healthBadges: ['Vacinada', 'Castrada', 'Vermifugada', 'FIV/FELV Negativo'],
+    galleryImages: [
+      '/images/desktop/pet-detail-luna-thumb-1.png',
+      '/images/desktop/pet-detail-luna-thumb-2.png',
+      '/images/desktop/pet-detail-luna-thumb-3.png',
+    ],
     description: 'Luna é elegante, tranquila e sociável. Gosta de lugares quentinhos para cochilar.',
   },
   {
@@ -444,5 +456,41 @@ export const ADOPTION_PETS: PetItem[] = [
     imageUrl: '/images/desktop/pet-clara.png',
     breed: 'Gata Laranja',
     description: 'Clara é super expressiva e afetuosa. Adora cobertores fofinhos e brincar com varinhas.',
+  },
+];
+
+export const RECOMMENDED_PETS_DETAIL: PetItem[] = [
+  {
+    id: 'mel',
+    name: 'Mel',
+    species: 'gatos',
+    gender: 'Fêmea',
+    age: '5 meses',
+    location: 'Rio de Janeiro - RJ',
+    imageUrl: '/images/desktop/pet-detail-rec-mel.png',
+    breed: 'Mestiça / Calico',
+    description: 'Mel é uma gatinha calma, ronronante e curiosa.',
+  },
+  {
+    id: 'fred',
+    name: 'Fred',
+    species: 'cachorros',
+    gender: 'Macho',
+    age: '1 ano',
+    location: 'Belo Horizonte - MG',
+    imageUrl: '/images/desktop/pet-detail-rec-fred.png',
+    breed: 'Bulldog Francês',
+    description: 'Fred é companheiro para todas as horas.',
+  },
+  {
+    id: 'luna',
+    name: 'Luna',
+    species: 'gatos',
+    gender: 'Fêmea',
+    age: '3 anos',
+    location: 'São Paulo - SP',
+    imageUrl: '/images/desktop/pet-detail-rec-luna.png',
+    breed: 'Siamês',
+    description: 'Luna é elegante, tranquila e sociável.',
   },
 ];

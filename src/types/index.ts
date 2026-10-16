@@ -4,6 +4,7 @@ export type NavPageId =
   | 'detalhes-produto'
   | 'servicos' 
   | 'adocao' 
+  | 'detalhes-animal'
   | 'apoie' 
   | 'chat' 
   | 'feedback' 
@@ -83,9 +84,16 @@ export interface PetItem {
   age: string;
   location: string;
   imageUrl: string;
+  detailImageUrl?: string;
   isFavorite?: boolean;
   breed?: string;
   description?: string;
+  ageCategory?: string;
+  rescueInfo?: string;
+  healthBadges?: string[];
+  galleryImages?: string[];
+  aboutTitle?: string;
+  longDescription?: string;
 }
 
 export interface OfferBannerData {

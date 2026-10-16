@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
           <button
             type="button"
-            className={`nav-menu-link ${currentPage === 'adocao' ? 'active' : ''}`}
+            className={`nav-menu-link ${currentPage === 'adocao' || currentPage === 'detalhes-animal' ? 'active' : ''}`}
             onClick={() => onNavigate('adocao')}
           >
             Adoção
