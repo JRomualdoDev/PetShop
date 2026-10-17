@@ -115,3 +115,25 @@
   color: #ffffff;
   transform: translateY(-1px);
 }
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 40px 0 24px 0;
+  }
+
+  .site-footer-container {
+    padding: 0 16px;
+  }
+
+  .footer-columns-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-bottom: 28px;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}

@@ -3,6 +3,7 @@ export type NavPageId =
   | 'produtos' 
   | 'detalhes-produto'
   | 'servicos' 
+  | 'detalhes-servico'
   | 'adocao' 
   | 'detalhes-animal'
   | 'apoie' 
@@ -10,9 +11,26 @@ export type NavPageId =
   | 'feedback' 
   | 'login' 
   | 'cadastro'
+  | 'splash'
+  | 'onboarding'
+  | 'carrinho'
+  | 'checkout'
+  | 'pedido-confirmado'
   | 'buscar' 
   | 'favoritos' 
-  | 'perfil';
+  | 'perfil'
+  | 'mobile-home'
+  | 'mobile-busca'
+  | 'mobile-detalhes-produto'
+  | 'mobile-servicos'
+  | 'mobile-adocao'
+  | 'mobile-detalhes-animal'
+  | 'mobile-apoie'
+  | 'mobile-chat'
+  | 'mobile-feedback'
+  | 'mobile-feedback-sucesso'
+  | 'mobile-login'
+  | 'mobile-cadastro';
 
 // Backwards compatibility alias for older mobile components
 export type NavTabId = 'inicio' | 'buscar' | 'favoritos' | 'perfil';

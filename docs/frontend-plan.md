@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
-> **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 9. Feedback / Avaliação Desktop (**Concluída**)  
-> **Próxima Página**: 10. Login Desktop (`design/Desktop/login.png`)  
+> **Status Geral**: Fase A (Desktop Primeiro) — **100% Concluída** (Todas as 11 páginas Desktop finalizadas e validadas)  
+> **Últimas Páginas**: 10. Login Desktop & 11. Criar Conta Desktop (**Concluídas**)  
+> **Próxima Fase**: Fase B — Fluxo Mobile / Responsivo (`design/mobile/...`)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -20,15 +20,16 @@
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | **Concluída** | Não iniciada |
 | 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | **Concluída** | Não iniciada |
 | 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | **Concluída** | Não iniciada |
-| 10 | **Login** | `design/Desktop/login.png` (1440x900) | `design/mobile/login.png` (402x874) | Não iniciada | Não iniciada |
-| 11 | **Criar Conta / Cadastro** | `design/Desktop/criar-conta.png` (1440x900) | `design/mobile/cadastro.png` (402x874) | Não iniciada | Não iniciada |
+| 10 | **Login** | `design/Desktop/login.png` (1440x900) | `design/mobile/login.png` (402x874) | **Concluída** | Não iniciada |
+| 11 | **Criar Conta / Cadastro** | `design/Desktop/criar-conta.png` (1440x900) | `design/mobile/cadastro.png` (402x874) | **Concluída** | Não iniciada |
 
 ### Telas Complementares Exclusivas do Fluxo Mobile (Fase B)
-- **Carrinho**: `design/mobile/carrinho.png`
-- **Checkout**: `design/mobile/checkout.png`
-- **Pedido Confirmado**: `design/mobile/pedido-confirmado.png`
-- **Splash Screen**: `design/mobile/splash-screen.png`
-- **Onboarding (Passos 1, 2 e 3)**: `design/mobile/onboarding-step-1.png`, `step-2.png`, `step-3.png`
+- **Carrinho**: `design/mobile/carrinho.png` (402x874) — **Concluída**
+- **Checkout**: `design/mobile/checkout.png` (402x874) — **Concluída**
+- **Pedido Confirmado**: `design/mobile/pedido-confirmado.png` (402x874) — **Concluída**
+- **Splash Screen**: `design/mobile/splash-screen.png` (402x874) — **Concluída**
+- **Onboarding (Passos 1, 2 e 3)**: `design/mobile/onboarding-step-1.png`, `step-2.png`, `step-3.png` (402x874) — **Concluída**
+- **Detalhes do Serviço Mobile**: `design/mobile/detalhes-servico.png` (402x950) — **Concluída**
 
 ---
 
@@ -276,8 +277,128 @@
 
 ---
 
-## 11. Próximos Passos (Fase A)
-Após aprovação desta entrega, iniciaremos a implementação da **Página 10: Login Desktop (`design/Desktop/login.png`)**.
+## 11. Relatório de Execução — Página 10: Login Desktop (`design/Desktop/login.png`)
+
+### Layout e Comportamento
+- **Layout Split-Screen 50/50 (1440 × 900px)**:
+  - **Coluna Esquerda (720px)**: Foto em alta resolução da tutora acariciando seu Golden Retriever na sala de estar com lareira acesa e livro com café (`public/images/desktop/auth-login-cover.png`).
+  - **Coluna Direita (720px)**: Fundo neutro suave `#f8f9fa` com cartão de autenticação perfeitamente centralizado (largura de `440px`, `border-radius: 24px`, sombra suave e borda `#f1f5f9`).
+- **Ocultação do Header/Footer**: As telas dedicadas de login e cadastro ocultam a barra de navegação superior e o rodapé padrão, respeitando fielmente a especificação visual do Figma.
+
+### Componentes e Telas Implementadas
+- **`LoginPage` (`src/pages/LoginPage.tsx`, `LoginPage.css`)**:
+  - **Logo da Marca**: Botão com ícone quadrado arredondado em teal `#0f766e` com pata branca `PawPrint` e tipografia `PetConnect` em negrito 800, com link para retorno à Home.
+  - **Títulos**: Título `Bem-vindo de volta!` (26px, bold) e subtítulo `Entre na sua conta para continuar.` em `#64748b`.
+  - **Campo de E-mail**: Rótulo em negrito com placeholder `mariana@petconnect.com` e bordas com foco em teal suave.
+  - **Campo de Senha**: Campo com máscara de senha e botão com ícone de olho (`Eye` / `EyeOff`) para alternância entre texto visível e oculto.
+  - **Recuperação de Senha**: Link alinhado à direita `Esqueceu a senha?` com modal interativo de redefinição de senha e feedback por toast.
+  - **Botão de Envio**: Botão primário full-width `Entrar` em teal `#0f766e` com elevação e microinteração ao hover.
+  - **Divisor Elegante**: Linhas duplas sutis com texto `ou` centralizado.
+  - **Botões de Login Social**: Grade de 2 colunas com `Google` e `Apple` em botões brancos com borda `#e2e8f0` e ícones estilizados.
+  - **Alternância de Tela**: Link no rodapé `Não tem uma conta? Criar conta` com navegação suave para a tela de cadastro.
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 900px arquivada em `public/shot-login-1440-actual.png`, 100% fiel à referência original `design/Desktop/login.png`.
+- Lint: 0 erros e 0 avisos em 57 arquivos.
+- Build de produção: concluído com sucesso.
+
+---
+
+## 12. Relatório de Execução — Página 11: Criar Conta Desktop (`design/Desktop/criar-conta.png`)
+
+### Layout e Comportamento
+- **Layout Split-Screen 50/50 (1440 × 900px)**:
+  - **Coluna Esquerda (720px)**: Foto em alta resolução de gatinho filhote cinza de olhos verdes brincando com novelo de lã vermelho sobre manta tricotada (`public/images/desktop/auth-register-cover.png`).
+  - **Coluna Direita (720px)**: Fundo `#f8f9fa` com cartão de registro de `440px` de largura e `border-radius: 24px`.
+
+### Componentes e Telas Implementadas
+- **`RegisterPage` (`src/pages/RegisterPage.tsx`, `RegisterPage.css`)**:
+  - **Logo da Marca**: Logo da PetConnect integrado com navegação direta para a home.
+  - **Títulos**: `Crie sua conta` e `Junte-se à comunidade PetConnect.`.
+  - **Formulário Completo**:
+    - `Nome completo`: Placeholder `Seu nome completo`.
+    - `E-mail`: Placeholder `seu@email.com`.
+    - `Senha`: Placeholder `Crie uma senha forte` com toggle de visibilidade.
+    - `Confirmar senha`: Placeholder `Confirme sua senha` com validação de correspondência e toggle de visibilidade.
+  - **Checkbox de Termos e Privacidade**:
+    - Checkbox estilizado em teal `#0f766e` com ícone de checkmark branco.
+    - Links interativos para `Termos de Uso` e `Política de Privacidade` com modal de leitura das regras da plataforma.
+  - **Botão CTA**: Botão `Criar conta` em teal `#0f766e`.
+  - **Divisor**: Divisor com `ou` centralizado.
+  - **Autenticação Social**: Botões `Google` e `Apple`.
+  - **Link de Alternância**: `Já tem uma conta? Entrar` com transição imediata para a tela de login.
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 900px arquivada em `public/shot-cadastro-1440-actual.png`, 100% fiel à referência original `design/Desktop/criar-conta.png`.
+- Lint: 0 erros e 0 avisos em 57 arquivos.
+- Build de produção: concluído com sucesso.
+
+---
+
+## 13. Conclusão da Fase A e Próximos Passos (Fase B — Mobile)
+
+🎉 **FASE A (DESKTOP PRIMEIRO) CONCLUÍDA COM 100% DE FIDELIDADE!**
+Todas as 11 páginas da versão Desktop foram integralmente implementadas, conectadas e validadas:
+1. `home.png` (Home / Página Inicial)
+2. `produtos.png` (Catálogo de Produtos)
+3. `detalhes-do-produto.png` (Detalhes do Produto)
+4. `servicos.png` (Serviços Profissionais)
+5. `adocao.png` (Adoção de Pets)
+6. `detalhes-do-animal.png` (Detalhes do Animal)
+7. `apoie-uma-causa.png` (Apoie uma Causa)
+8. `chat.png` (Chat / Atendimento)
+9. `feedback.png` (Feedback / Avaliação)
+10. `login.png` (Login / Autenticação)
+11. `criar-conta.png` (Criar Conta / Cadastro)
+
+### Fase B — Módulo 1 & 2 Concluídos (Telas Exclusivas & Fluxo de Compra Mobile)
+Foram implementadas, integradas ao ecossistema e validadas pixel-perfect as seguintes telas mobile:
+
+1. **`SplashScreen` (`src/pages/mobile/SplashScreen.tsx`, `SplashScreen.css`)**:
+   - Status bar iOS nativa, ícone azul da pata com efeito pulsante suave, tipografia e badge de versão `Versão 1.0 • Cuidado Amoroso`.
+   - Captura em `public/shot-mobile-splash-actual.png`.
+
+2. **`OnboardingScreen` (`src/pages/mobile/OnboardingScreen.tsx`, `OnboardingScreen.css`)**:
+   - Fluxo interativo completo de 3 passos:
+     - Passo 1: *Tudo para o seu pet* com botão `Próximo`.
+     - Passo 2: *Serviços especializados* com botões `Voltar` e `Próximo`.
+     - Passo 3: *Ajude uma causa* com botão `Começar` (direciona para a Home).
+   - Indicador dinâmico de passos em pílula azul (`#3b82f6`).
+   - Captura em `public/shot-mobile-onboarding-actual.png`.
+
+3. **`CartPage` (`src/pages/CartPage.tsx`, `src/pages/CartPage.css`)**:
+   - **Responsividade Real Sem Moldura Artificial de Celular**: Página web completa responsiva que se adapta fluidamente da resolução Desktop (1440px) para a resolução Mobile (< 768px).
+   - **Versão Desktop (1440px)**:
+     - Header persistente (`Navbar`) com contador do carrinho e Rodapé slate completo (`Footer`).
+     - Breadcrumb estrutural `Início / Produtos / Meu Carrinho`.
+     - Layout em 2 colunas: Lista de produtos com tabela, fotos (72×72px), preço unitário, stepper `- 1 +`, subtotal por item e remoção com ícone de lixeira.
+     - Ferramentas de cálculo de CEP/Frete e Cupom de desconto (`PETCONNECT10` - 10% OFF).
+     - Card lateral fixo `Resumo do Pedido` com Subtotal, Frete, Desconto e Total destacado, além de selos de segurança.
+     - Captura Desktop em `public/shot-carrinho-1440-actual.png`.
+   - **Versão Mobile (< 768px)**:
+     - Adaptação fluida 100% largura sem desenho de moldura de celular, sem barra de status simulada e sem barra inferior iOS artificial.
+     - Cartões de produtos empilhados idênticos ao Figma `design/mobile/carrinho.png` (foto, título, preço azul R$ 89,90, stepper e botão de lixeira vermelho).
+     - Card de resumo com Subtotal, Frete e Total R$ 101,90, e botão CTA `Finalizar compra` em azul vibrante.
+     - Captura Mobile em `public/shot-carrinho-mobile-actual.png`.
+
+4. **`CheckoutScreen` (`src/pages/mobile/CheckoutScreen.tsx`, `CheckoutScreen.css`)**:
+   - Seletor de endereço de entrega com modal interativo de alteração.
+   - Seleção de forma de pagamento com rádio visual (Cartão de crédito selecionado com destaque azul, Pix e Cartão de débito).
+   - Botão CTA `Confirmar pedido` que gera a confirmação da compra.
+   - Captura em `public/shot-mobile-checkout-actual.png`.
+
+5. **`OrderConfirmationScreen` (`src/pages/mobile/OrderConfirmationScreen.tsx`, `OrderConfirmationScreen.css`)**:
+   - Selo circular animado de sucesso verde esmeralda com checkmark branco.
+   - Badge com identificador `Pedido #1024`.
+   - Botões de navegação `Ver pedido` e `Voltar para início`.
+   - Captura em `public/shot-mobile-pedido-confirmado-actual.png`.
+
+6. **`ServiceDetailScreen` (`src/pages/mobile/ServiceDetailScreen.tsx`, `ServiceDetailScreen.css`)**:
+   - Foto da clínica moderna Pet Estilo, avaliação com estrela dourada, localização com pin, descrição de serviço, horários de funcionamento e contatos telefônico/e-mail.
+   - Ações inferiores com `Conversar` e modal interativo de agendamento `Solicitar serviço`.
+   - Captura em `public/shot-mobile-detalhes-servico-actual.png`.
+
+
 
 
 

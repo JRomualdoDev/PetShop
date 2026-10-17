@@ -10,6 +10,17 @@ import { PetDetailPage } from './pages/PetDetailPage';
 import { CausesPage } from './pages/CausesPage';
 import { ChatPage } from './pages/ChatPage';
 import { FeedbackPage } from './pages/FeedbackPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { SplashScreen } from './pages/mobile/SplashScreen';
+import { OnboardingScreen } from './pages/mobile/OnboardingScreen';
+import { CartPage } from './pages/CartPage';
+import { CheckoutScreen } from './pages/mobile/CheckoutScreen';
+import { OrderConfirmationScreen } from './pages/mobile/OrderConfirmationScreen';
+import { ServiceDetailScreen } from './pages/mobile/ServiceDetailScreen';
+import { HomeScreen } from './pages/mobile/HomeScreen';
+import { SearchScreen } from './pages/mobile/SearchScreen';
+import { ProductDetailScreen as MobileProductDetailScreen } from './pages/mobile/ProductDetailScreen';
 import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
@@ -39,10 +50,22 @@ export function App() {
         produtos: 'Catálogo de Produtos',
         'detalhes-produto': 'Detalhes do Produto',
         servicos: 'Serviços Profissionais',
+        'detalhes-servico': 'Detalhes do Serviço',
         adocao: 'Adoção de Pets',
         'detalhes-animal': 'Detalhes do Animal',
         apoie: 'Apoie uma Causa',
         chat: 'Atendimento via Chat',
+        feedback: 'Feedback e Avaliação',
+        login: 'Entrar na Conta',
+        cadastro: 'Criar Conta',
+        splash: 'Tela de Abertura (Splash)',
+        onboarding: 'Boas-vindas (Onboarding)',
+        carrinho: 'Meu Carrinho',
+        checkout: 'Finalizar Compra',
+        'pedido-confirmado': 'Pedido Confirmado',
+        'mobile-home': 'Início Mobile',
+        'mobile-busca': 'Busca Mobile',
+        'mobile-detalhes-produto': 'Detalhes do Produto Mobile',
         favoritos: 'Meus Favoritos',
         perfil: 'Perfil do Tutor',
       };
@@ -62,6 +85,7 @@ export function App() {
 
   const handleBookService = (serviceId: string) => {
     showToast(`Solicitação de agendamento iniciada para o serviço (${serviceId})!`);
+    handleNavigate('detalhes-servico');
   };
 
   const handleSelectProduct = (productId: string) => {
@@ -91,15 +115,27 @@ export function App() {
     ADOPTION_PETS.find((p) => p.id === 'luna') ||
     ADOPTION_PETS[0];
 
+  const isStandalonePage =
+    currentPage === 'login' ||
+    currentPage === 'cadastro' ||
+    currentPage === 'splash' ||
+    currentPage === 'onboarding' ||
+    currentPage === 'checkout' ||
+    currentPage === 'pedido-confirmado' ||
+    currentPage === 'detalhes-servico' ||
+    currentPage.startsWith('mobile-');
+
   return (
-    <div className="site-wrapper">
-      {/* Desktop Sticky Header */}
-      <Navbar
-        currentPage={currentPage}
-        onNavigate={handleNavigate}
-        cartCount={cartCount}
-        favoritesCount={0}
-      />
+    <div className={`site-wrapper ${isStandalonePage ? 'auth-mode' : ''}`}>
+      {/* Desktop Sticky Header (hidden on standalone mobile/auth screens) */}
+      {!isStandalonePage && (
+        <Navbar
+          currentPage={currentPage}
+          onNavigate={handleNavigate}
+          cartCount={cartCount}
+          favoritesCount={0}
+        />
+      )}
 
       {/* Main Content Area */}
       <main className="site-main" id="site-main-content">
@@ -130,6 +166,18 @@ export function App() {
 
         {currentPage === 'servicos' && (
           <ServicesPage onBookService={handleBookService} />
+        )}
+
+        {currentPage === 'detalhes-servico' && (
+          <ServiceDetailScreen
+            onBack={() => handleNavigate('servicos')}
+            onChat={() => handleNavigate('chat')}
+            onRequestService={() => {
+              showToast('Serviço agendado com sucesso!');
+              handleNavigate('servicos');
+            }}
+            onShowToast={showToast}
+          />
         )}
 
         {currentPage === 'adocao' && (
@@ -166,15 +214,111 @@ export function App() {
           />
         )}
 
+        {currentPage === 'login' && (
+          <LoginPage
+            onLoginSuccess={() => {
+              showToast('Bem-vinda de volta, Mariana!');
+              handleNavigate('inicio');
+            }}
+            onNavigateToRegister={() => handleNavigate('cadastro')}
+            onNavigateHome={() => handleNavigate('inicio')}
+            onShowToast={showToast}
+          />
+        )}
+
+        {currentPage === 'cadastro' && (
+          <RegisterPage
+            onRegisterSuccess={(name) => {
+              showToast(`Conta criada com sucesso! Bem-vindo(a), ${name.split(' ')[0]}!`);
+              handleNavigate('inicio');
+            }}
+            onNavigateToLogin={() => handleNavigate('login')}
+            onNavigateHome={() => handleNavigate('inicio')}
+            onShowToast={showToast}
+          />
+        )}
+
+        {currentPage === 'splash' && (
+          <SplashScreen onContinue={() => handleNavigate('onboarding')} />
+        )}
+
+        {currentPage === 'onboarding' && (
+          <OnboardingScreen onComplete={() => handleNavigate('inicio')} />
+        )}
+
+        {currentPage === 'carrinho' && (
+          <CartPage
+            onCheckout={() => handleNavigate('checkout')}
+            onNavigateHome={() => handleNavigate('inicio')}
+            onContinueShopping={() => handleNavigate('produtos')}
+            onNavigate={handleNavigate}
+            onShowToast={showToast}
+          />
+        )}
+
+        {currentPage === 'checkout' && (
+          <CheckoutScreen
+            onBack={() => handleNavigate('carrinho')}
+            onConfirmOrder={() => handleNavigate('pedido-confirmado')}
+            onShowToast={showToast}
+          />
+        )}
+
+        {currentPage === 'pedido-confirmado' && (
+          <OrderConfirmationScreen
+            onViewOrder={() => handleNavigate('carrinho')}
+            onNavigateHome={() => handleNavigate('inicio')}
+          />
+        )}
+
+        {currentPage === 'mobile-home' && (
+          <HomeScreen
+            onNavigate={handleNavigate}
+            onSelectProduct={handleSelectProduct}
+            onShowToast={showToast}
+          />
+        )}
+
+        {currentPage === 'mobile-busca' && (
+          <SearchScreen
+            onNavigate={handleNavigate}
+            onSelectProduct={handleSelectProduct}
+            onShowToast={showToast}
+          />
+        )}
+
+        {currentPage === 'mobile-detalhes-produto' && (
+          <MobileProductDetailScreen
+            onBack={() => handleNavigate('mobile-busca')}
+            onAddToCart={(qty) => {
+              setCartCount((c) => c + qty);
+              showToast(`${qty}x Fonte de Água Bivolt adicionada ao carrinho!`);
+            }}
+            onNavigate={handleNavigate}
+            onShowToast={showToast}
+          />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
           currentPage !== 'servicos' &&
+          currentPage !== 'detalhes-servico' &&
           currentPage !== 'adocao' &&
           currentPage !== 'detalhes-animal' &&
           currentPage !== 'apoie' &&
           currentPage !== 'chat' &&
-          currentPage !== 'feedback' && (
+          currentPage !== 'feedback' &&
+          currentPage !== 'login' &&
+          currentPage !== 'cadastro' &&
+          currentPage !== 'splash' &&
+          currentPage !== 'onboarding' &&
+          currentPage !== 'carrinho' &&
+          currentPage !== 'checkout' &&
+          currentPage !== 'pedido-confirmado' &&
+          currentPage !== 'mobile-home' &&
+          currentPage !== 'mobile-busca' &&
+          currentPage !== 'mobile-detalhes-produto' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
                 {currentPage === 'favoritos' && 'Meus Favoritos'}
@@ -194,8 +338,8 @@ export function App() {
           )}
       </main>
 
-      {/* Desktop Slate Footer */}
-      <Footer onNavigate={handleNavigate} />
+      {/* Desktop Slate Footer (hidden on standalone mobile/auth screens) */}
+      {!isStandalonePage && <Footer onNavigate={handleNavigate} />}
 
       {/* Interactive Toast Notification */}
       {toastMessage && (
@@ -208,3 +352,4 @@ export function App() {
 }
 
 export default App;
+

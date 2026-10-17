@@ -27,6 +27,9 @@
   gap: 10px;
   text-decoration: none;
   cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .brand-logo-icon {
@@ -62,6 +65,9 @@
   padding: 8px 2px;
   position: relative;
   transition: color 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .nav-menu-link:hover {
@@ -101,6 +107,9 @@
   border-radius: 50%;
   position: relative;
   transition: background-color 0.15s ease, color 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .action-icon-btn:hover {
@@ -155,6 +164,9 @@
   border-radius: 9999px;
   transition: background-color 0.15s ease;
   margin-left: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .user-profile-btn:hover {
@@ -173,4 +185,36 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--color-slate-800);
+}
+
+/* Responsive adjustments for Mobile Viewports */
+@media (max-width: 768px) {
+  .site-header {
+    height: 64px;
+  }
+
+  .site-header-container {
+    padding: 0 16px;
+  }
+
+  .desktop-nav-menu {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .user-name-label {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .brand-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
 }

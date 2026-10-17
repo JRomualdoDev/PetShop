@@ -105,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             type="button"
             className="action-icon-btn cart-btn"
-            onClick={() => onNavigate('produtos')}
+            onClick={() => onNavigate('carrinho')}
             title="Carrinho de compras"
             aria-label="Carrinho com itens"
           >
