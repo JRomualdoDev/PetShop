@@ -9,6 +9,7 @@ import { AdoptionPage } from './pages/AdoptionPage';
 import { PetDetailPage } from './pages/PetDetailPage';
 import { CausesPage } from './pages/CausesPage';
 import { ChatPage } from './pages/ChatPage';
+import { FeedbackPage } from './pages/FeedbackPage';
 import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
@@ -158,6 +159,13 @@ export function App() {
           />
         )}
 
+        {currentPage === 'feedback' && (
+          <FeedbackPage
+            onShowToast={showToast}
+            onNavigateHome={() => handleNavigate('inicio')}
+          />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
@@ -165,7 +173,8 @@ export function App() {
           currentPage !== 'adocao' &&
           currentPage !== 'detalhes-animal' &&
           currentPage !== 'apoie' &&
-          currentPage !== 'chat' && (
+          currentPage !== 'chat' &&
+          currentPage !== 'feedback' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
                 {currentPage === 'favoritos' && 'Meus Favoritos'}

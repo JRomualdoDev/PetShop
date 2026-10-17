@@ -1,8 +1,8 @@
 # Projeto PetConnect — Plano de Implementação do Frontend
 
 > **Status Geral**: Fase A (Desktop Primeiro) — Em andamento  
-> **Página Atual**: 8. Chat / Atendimento Desktop (**Concluída**)  
-> **Próxima Página**: 9. Feedback / Avaliação Desktop (`design/Desktop/feedback.png`)  
+> **Página Atual**: 9. Feedback / Avaliação Desktop (**Concluída**)  
+> **Próxima Página**: 10. Login Desktop (`design/Desktop/login.png`)  
 > **Última Atualização**: Outubro 2026
 
 ---
@@ -19,7 +19,7 @@
 | 6 | **Detalhes do Animal** | `design/Desktop/detalhes-do-animal.png` (1440x1708) | `design/mobile/detalhes-animal.png` (402x874) | **Concluída** | Não iniciada |
 | 7 | **Apoie uma Causa** | `design/Desktop/apoie-uma-causa.png` (1440x1202) | `design/mobile/apoie-causa.png` (402x1029) | **Concluída** | Não iniciada |
 | 8 | **Chat / Atendimento** | `design/Desktop/chat.png` (1440x1201) | `design/mobile/chat-atendimento.png` (402x874) | **Concluída** | Não iniciada |
-| 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | Não iniciada | Não iniciada |
+| 9 | **Feedback / Avaliação** | `design/Desktop/feedback.png` (1440x1200) | `design/mobile/feedback.png` & `feedback-sucesso.png` | **Concluída** | Não iniciada |
 | 10 | **Login** | `design/Desktop/login.png` (1440x900) | `design/mobile/login.png` (402x874) | Não iniciada | Não iniciada |
 | 11 | **Criar Conta / Cadastro** | `design/Desktop/criar-conta.png` (1440x900) | `design/mobile/cadastro.png` (402x874) | Não iniciada | Não iniciada |
 
@@ -243,8 +243,41 @@
 
 ---
 
-## 10. Próximos Passos (Fase A)
-Após aprovação desta entrega, iniciaremos a implementação da **Página 9: Feedback / Avaliação Desktop (`design/Desktop/feedback.png`)**.
+## 10. Relatório de Execução — Página 9: Feedback / Avaliação Desktop (`design/Desktop/feedback.png`)
+
+### Componentes Reutilizados e Ajustados
+- **`Navbar` (`src/components/common/Navbar.tsx`)**: Reutilizada com persistência de dados de navegação, carrinho e perfil do usuário.
+- **`Footer` (`src/components/common/Footer.tsx`)**: Reutilizado com alinhamento pixel-perfect a partir de 848px até 1200px.
+- **`App` (`src/App.tsx`)**: Gerenciamento de rota `feedback` e exibição de notificações toast informativas ao tutor.
+
+### Componentes e Telas Implementadas
+- **`FeedbackPage` (`src/pages/FeedbackPage.tsx`, `FeedbackPage.css`)**:
+  - Container em cartão branco de 598px de largura com cantos arredondados de `24px` e sombra sutil sobre fundo neutro `#f8f9fa`.
+  - Cabeçalho de avaliação:
+    - Título `Como foi sua experiência?` (26px, bold, centralizado).
+    - Subtítulo `Sua opinião é fundamental para melhorarmos a nossa plataforma.` (15px, centralizado).
+  - Seletor de Avaliação por Estrelas (5 estrelas):
+    - 3 estrelas preenchidas em tom dourado/âmbar `#f59e0b` e 2 estrelas com contorno suave `#cbd5e1`, exatamente como no Figma.
+    - Suporte a seleção interativa (ao passar o mouse com microinteração de escala e ao clicar para alterar a pontuação de 1 a 5).
+  - Formulário de Comentário:
+    - Rótulo `Seu comentário` em negrito.
+    - Campo de área de texto com placeholder `Digite seu comentário...` e cantos de 12px.
+    - Botão de envio primário `Enviar feedback` em teal `#0f766e` com elevação sutil no hover.
+  - Linha divisória sutil `#f1f5f9`.
+  - Banner de Confirmação:
+    - Fundo verde menta `#d1fae5` com cantos de `12px`.
+    - Ícone `CheckCircle2` verde `#059669`.
+    - Texto `Obrigado pelo seu feedback! ❤` em verde escuro `#047857`.
+
+### Validação Visual
+- Captura de tela realizada em 1440 × 1200px arquivada em `public/shot-feedback-1440-actual.png`, 100% fiel à referência original `design/Desktop/feedback.png`.
+- Lint: 0 erros e 0 avisos em 53 arquivos.
+- Build de produção: concluído com sucesso em 473ms.
+
+---
+
+## 11. Próximos Passos (Fase A)
+Após aprovação desta entrega, iniciaremos a implementação da **Página 10: Login Desktop (`design/Desktop/login.png`)**.
 
 
 
