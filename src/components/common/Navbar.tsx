@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Heart, ShoppingBag, PawPrint } from 'lucide-react';
+import { Search, Heart, ShoppingBag, PawPrint, User } from 'lucide-react';
 import type { NavPageId } from '../../types';
 import { USER_PROFILE } from '../../data/mockData';
 import './Navbar.css';
@@ -9,6 +9,9 @@ interface NavbarProps {
   onNavigate: (page: NavPageId) => void;
   cartCount?: number;
   favoritesCount?: number;
+  isLoggedIn?: boolean;
+  userName?: string;
+  userAvatar?: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,6 +19,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   cartCount = 3,
   favoritesCount = 0,
+  isLoggedIn = true,
+  userName = USER_PROFILE.name,
+  userAvatar = USER_PROFILE.avatarUrl,
 }) => {
   return (
     <header className="site-header" id="main-header">
@@ -113,23 +119,37 @@ export const Navbar: React.FC<NavbarProps> = ({
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </button>
 
-          <button
-            type="button"
-            className="user-profile-btn"
-            onClick={() => onNavigate('perfil')}
-            aria-label={`Perfil de ${USER_PROFILE.name}`}
-          >
-            <img
-              src={USER_PROFILE.avatarUrl}
-              alt={USER_PROFILE.name}
-              className="user-avatar-img"
-              onError={(e) => {
-                // Fallback gracefully if image fails
-                (e.target as HTMLElement).style.display = 'none';
-              }}
-            />
-            <span className="user-name-label">{USER_PROFILE.name}</span>
-          </button>
+          {isLoggedIn ? (
+            <button
+              type="button"
+              className="user-profile-btn"
+              onClick={() => onNavigate('perfil')}
+              aria-label={`Perfil de ${userName}`}
+              id="header-user-profile-btn"
+            >
+              <img
+                src={userAvatar}
+                alt={userName}
+                className="user-avatar-img"
+                onError={(e) => {
+                  // Fallback gracefully if image fails
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+              <span className="user-name-label">{userName}</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="nav-login-btn"
+              onClick={() => onNavigate('login')}
+              aria-label="Entrar na conta"
+              id="header-login-btn"
+            >
+              <User size={16} />
+              <span>Entrar</span>
+            </button>
+          )}
         </div>
       </div>
     </header>

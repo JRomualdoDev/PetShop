@@ -18,9 +18,11 @@ import { CartPage } from './pages/CartPage';
 import { CheckoutScreen } from './pages/mobile/CheckoutScreen';
 import { OrderConfirmationScreen } from './pages/mobile/OrderConfirmationScreen';
 import { ServiceDetailScreen } from './pages/mobile/ServiceDetailScreen';
+import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { HomeScreen } from './pages/mobile/HomeScreen';
 import { SearchScreen } from './pages/mobile/SearchScreen';
 import { ProductDetailScreen as MobileProductDetailScreen } from './pages/mobile/ProductDetailScreen';
+import { TutorProfilePage } from './pages/TutorProfilePage';
 import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
 import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
 import './App.css';
@@ -32,14 +34,22 @@ export function App() {
   const [currentPage, setCurrentPage] = useState<NavPageId>(urlPage || 'inicio');
   const [selectedProductId, setSelectedProductId] = useState<string>('racao-premium-caes-15kg');
   const [selectedPetId, setSelectedPetId] = useState<string>('luna');
+  const [selectedServiceId, setSelectedServiceId] = useState<string>('dr-gustavo-silva');
   const [cartCount, setCartCount] = useState<number>(3);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [currentUserName, setCurrentUserName] = useState<string>('Mariana');
 
   const showToast = (message: string) => {
     setToastMessage(message);
     setTimeout(() => {
       setToastMessage((current) => (current === message ? null : current));
     }, 2800);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    showToast('Você encerrou sua sessão na PetConnect.');
   };
 
   const handleNavigate = (page: NavPageId) => {
@@ -84,7 +94,7 @@ export function App() {
   };
 
   const handleBookService = (serviceId: string) => {
-    showToast(`Solicitação de agendamento iniciada para o serviço (${serviceId})!`);
+    setSelectedServiceId(serviceId);
     handleNavigate('detalhes-servico');
   };
 
@@ -122,7 +132,6 @@ export function App() {
     currentPage === 'onboarding' ||
     currentPage === 'checkout' ||
     currentPage === 'pedido-confirmado' ||
-    currentPage === 'detalhes-servico' ||
     currentPage.startsWith('mobile-');
 
   return (
@@ -134,6 +143,8 @@ export function App() {
           onNavigate={handleNavigate}
           cartCount={cartCount}
           favoritesCount={0}
+          isLoggedIn={isLoggedIn}
+          userName={currentUserName}
         />
       )}
 
@@ -169,12 +180,13 @@ export function App() {
         )}
 
         {currentPage === 'detalhes-servico' && (
-          <ServiceDetailScreen
+          <ServiceDetailPage
+            serviceId={selectedServiceId}
             onBack={() => handleNavigate('servicos')}
             onChat={() => handleNavigate('chat')}
-            onRequestService={() => {
-              showToast('Serviço agendado com sucesso!');
-              handleNavigate('servicos');
+            onNavigate={handleNavigate}
+            onRequestService={(info) => {
+              showToast(`Agendamento de ${info.procedureName} confirmado com sucesso!`);
             }}
             onShowToast={showToast}
           />
@@ -217,6 +229,8 @@ export function App() {
         {currentPage === 'login' && (
           <LoginPage
             onLoginSuccess={() => {
+              setIsLoggedIn(true);
+              setCurrentUserName('Mariana');
               showToast('Bem-vinda de volta, Mariana!');
               handleNavigate('inicio');
             }}
@@ -229,7 +243,10 @@ export function App() {
         {currentPage === 'cadastro' && (
           <RegisterPage
             onRegisterSuccess={(name) => {
-              showToast(`Conta criada com sucesso! Bem-vindo(a), ${name.split(' ')[0]}!`);
+              setIsLoggedIn(true);
+              const firstName = name.split(' ')[0] || 'Mariana';
+              setCurrentUserName(firstName);
+              showToast(`Conta criada com sucesso! Bem-vindo(a), ${firstName}!`);
               handleNavigate('inicio');
             }}
             onNavigateToLogin={() => handleNavigate('login')}
@@ -299,6 +316,15 @@ export function App() {
           />
         )}
 
+        {currentPage === 'perfil' && (
+          <TutorProfilePage
+            isLoggedIn={isLoggedIn}
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+            onShowToast={showToast}
+          />
+        )}
+
         {currentPage !== 'inicio' &&
           currentPage !== 'produtos' &&
           currentPage !== 'detalhes-produto' &&
@@ -318,11 +344,11 @@ export function App() {
           currentPage !== 'pedido-confirmado' &&
           currentPage !== 'mobile-home' &&
           currentPage !== 'mobile-busca' &&
-          currentPage !== 'mobile-detalhes-produto' && (
+          currentPage !== 'mobile-detalhes-produto' &&
+          currentPage !== 'perfil' && (
             <div className="placeholder-tab-view">
               <h2 className="placeholder-title">
                 {currentPage === 'favoritos' && 'Meus Favoritos'}
-                {currentPage === 'perfil' && 'Perfil de Mariana'}
               </h2>
               <p className="placeholder-desc">
                 Esta seção será implementada nas próximas etapas do plano incremental do PetConnect.
