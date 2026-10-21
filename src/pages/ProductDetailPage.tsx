@@ -308,6 +308,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 key={relProduct.id}
                 product={relProduct}
                 onClick={onSelectProduct}
+                onAddToCart={(p) => onAddToCart(p, 1)}
               />
             ))}
           </div>

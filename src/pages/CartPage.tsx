@@ -13,6 +13,10 @@ export interface CartItem {
 }
 
 interface CartPageProps {
+  items?: CartItem[];
+  onUpdateQty?: (id: string, delta: number) => void;
+  onRemoveItem?: (id: string, name: string) => void;
+  onClearCart?: () => void;
   onCheckout: () => void;
   onNavigateHome: () => void;
   onContinueShopping?: () => void;
@@ -40,13 +44,19 @@ const DEFAULT_CART_ITEMS: CartItem[] = [
 ];
 
 export const CartPage: React.FC<CartPageProps> = ({
+  items: propItems,
+  onUpdateQty: propUpdateQty,
+  onRemoveItem: propRemoveItem,
+  onClearCart,
   onCheckout,
   onNavigateHome,
   onContinueShopping,
   onNavigate,
   onShowToast,
 }) => {
-  const [items, setItems] = useState<CartItem[]>(DEFAULT_CART_ITEMS);
+  const [localItems, setLocalItems] = useState<CartItem[]>(DEFAULT_CART_ITEMS);
+  const items = propItems !== undefined ? propItems : localItems;
+
   const [couponCode, setCouponCode] = useState<string>('');
   const [discountPercent, setDiscountPercent] = useState<number>(0);
   const [couponApplied, setCouponApplied] = useState<string | null>(null);
@@ -54,25 +64,33 @@ export const CartPage: React.FC<CartPageProps> = ({
   const [shippingCalculated, setShippingCalculated] = useState<boolean>(false);
 
   const baseShippingFee = items.length > 0 ? 12.00 : 0.00;
-  const shippingFee = shippingCalculated ? baseShippingFee : 12.00;
+  const shippingFee = shippingCalculated ? baseShippingFee : (items.length > 0 ? 12.00 : 0.00);
 
   const handleUpdateQty = (id: string, delta: number) => {
-    setItems((prev) =>
-      prev
-        .map((item) => {
-          if (item.id === id) {
-            const newQty = item.quantity + delta;
-            return newQty > 0 ? { ...item, quantity: newQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean) as CartItem[]
-    );
+    if (propUpdateQty) {
+      propUpdateQty(id, delta);
+    } else {
+      setLocalItems((prev) =>
+        prev
+          .map((item) => {
+            if (item.id === id) {
+              const newQty = item.quantity + delta;
+              return newQty > 0 ? { ...item, quantity: newQty } : null;
+            }
+            return item;
+          })
+          .filter(Boolean) as CartItem[]
+      );
+    }
   };
 
   const handleRemove = (id: string, name: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-    if (onShowToast) onShowToast(`"${name}" removido do carrinho.`);
+    if (propRemoveItem) {
+      propRemoveItem(id, name);
+    } else {
+      setLocalItems((prev) => prev.filter((item) => item.id !== id));
+      if (onShowToast) onShowToast(`"${name}" removido do carrinho.`);
+    }
   };
 
   const handleApplyCoupon = (e: React.FormEvent) => {
@@ -137,14 +155,33 @@ export const CartPage: React.FC<CartPageProps> = ({
             </span>
           </div>
 
-          <button
-            type="button"
-            className="cart-continue-link"
-            onClick={handleContinue}
-          >
-            <ArrowLeft size={16} />
-            <span>Continuar comprando</span>
-          </button>
+          <div className="cart-header-actions">
+            {items.length > 0 && onClearCart && (
+              <button
+                type="button"
+                className="cart-clear-btn"
+                onClick={() => {
+                  if (window.confirm('Tem certeza de que deseja esvaziar todos os itens do carrinho?')) {
+                    onClearCart();
+                    if (onShowToast) onShowToast('Carrinho esvaziado com sucesso.');
+                  }
+                }}
+                title="Esvaziar carrinho"
+              >
+                <Trash2 size={15} />
+                <span>Esvaziar carrinho</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              className="cart-continue-link"
+              onClick={handleContinue}
+            >
+              <ArrowLeft size={16} />
+              <span>Continuar comprando</span>
+            </button>
+          </div>
         </header>
 
         {items.length === 0 ? (

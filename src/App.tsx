@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HomePage } from './pages/HomePage';
@@ -17,14 +17,13 @@ import { OnboardingScreen } from './pages/mobile/OnboardingScreen';
 import { CartPage } from './pages/CartPage';
 import { CheckoutScreen } from './pages/mobile/CheckoutScreen';
 import { OrderConfirmationScreen } from './pages/mobile/OrderConfirmationScreen';
-import { ServiceDetailScreen } from './pages/mobile/ServiceDetailScreen';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { HomeScreen } from './pages/mobile/HomeScreen';
 import { SearchScreen } from './pages/mobile/SearchScreen';
 import { ProductDetailScreen as MobileProductDetailScreen } from './pages/mobile/ProductDetailScreen';
 import { TutorProfilePage } from './pages/TutorProfilePage';
-import { CATALOG_PRODUCTS, ADOPTION_PETS } from './data/mockData';
-import type { NavPageId, CategoryId, ProductItem, PetItem } from './types';
+import { CATALOG_PRODUCTS, ADOPTION_PETS, INITIAL_CART_ITEMS } from './data/mockData';
+import type { NavPageId, CategoryId, ProductItem, PetItem, CartItem } from './types';
 import './App.css';
 
 export function App() {
@@ -35,7 +34,31 @@ export function App() {
   const [selectedProductId, setSelectedProductId] = useState<string>('racao-premium-caes-15kg');
   const [selectedPetId, setSelectedPetId] = useState<string>('luna');
   const [selectedServiceId, setSelectedServiceId] = useState<string>('dr-gustavo-silva');
-  const [cartCount, setCartCount] = useState<number>(3);
+
+  // Shared Cart State with persistent localStorage
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('petconnect_cart');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error('Error loading cart from localStorage', e);
+    }
+    return INITIAL_CART_ITEMS;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('petconnect_cart', JSON.stringify(cartItems));
+    } catch (e) {
+      console.error('Error saving cart to localStorage', e);
+    }
+  }, [cartItems]);
+
+  const cartCount = cartItems.reduce((acc, it) => acc + it.quantity, 0);
+
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
   const [currentUserName, setCurrentUserName] = useState<string>('Mariana');
@@ -103,9 +126,70 @@ export function App() {
     handleNavigate('detalhes-produto');
   };
 
-  const handleAddToCart = (product: ProductItem, quantity: number) => {
-    setCartCount((prev) => prev + quantity);
+  const handleAddToCart = (product: ProductItem | CartItem, quantity: number = 1) => {
+    setCartItems((prev) => {
+      const existingIndex = prev.findIndex((item) => item.id === product.id);
+      if (existingIndex > -1) {
+        const updated = [...prev];
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: updated[existingIndex].quantity + quantity,
+        };
+        return updated;
+      } else {
+        const newItem: CartItem = {
+          id: product.id,
+          name: product.name,
+          category: product.category,
+          price: product.price,
+          quantity: quantity,
+          imageUrl: product.imageUrl,
+        };
+        return [...prev, newItem];
+      }
+    });
     showToast(`${quantity}x "${product.name}" adicionado ao carrinho com sucesso!`);
+  };
+
+  const handleUpdateCartQty = (id: string, delta: number) => {
+    setCartItems((prev) =>
+      prev
+        .map((item) => {
+          if (item.id === id) {
+            const newQty = item.quantity + delta;
+            return newQty > 0 ? { ...item, quantity: newQty } : null;
+          }
+          return item;
+        })
+        .filter(Boolean) as CartItem[]
+    );
+  };
+
+  const handleRemoveCartItem = (id: string, name: string) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    showToast(`"${name}" removido do carrinho.`);
+  };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
+  const handleAddMultipleToCart = (itemsToAdd: CartItem[]) => {
+    setCartItems((prev) => {
+      let updated = [...prev];
+      for (const item of itemsToAdd) {
+        const existingIndex = updated.findIndex((it) => it.id === item.id || it.name === item.name);
+        if (existingIndex > -1) {
+          updated[existingIndex] = {
+            ...updated[existingIndex],
+            quantity: updated[existingIndex].quantity + item.quantity,
+          };
+        } else {
+          updated.push(item);
+        }
+      }
+      return updated;
+    });
   };
 
   const handleAdoptRequest = (pet: PetItem) => {
@@ -156,6 +240,7 @@ export function App() {
             onNavigateToCategory={handleSelectCategory}
             onNavigateToProduct={handleSelectProduct}
             onBookService={handleBookService}
+            onAddToCart={handleAddToCart}
           />
         )}
 
@@ -163,6 +248,7 @@ export function App() {
           <ProductsPage
             onSelectProduct={handleSelectProduct}
             onNavigateHome={() => handleNavigate('inicio')}
+            onAddToCart={handleAddToCart}
           />
         )}
 
@@ -265,6 +351,10 @@ export function App() {
 
         {currentPage === 'carrinho' && (
           <CartPage
+            items={cartItems}
+            onUpdateQty={handleUpdateCartQty}
+            onRemoveItem={handleRemoveCartItem}
+            onClearCart={handleClearCart}
             onCheckout={() => handleNavigate('checkout')}
             onNavigateHome={() => handleNavigate('inicio')}
             onContinueShopping={() => handleNavigate('produtos')}
@@ -275,8 +365,12 @@ export function App() {
 
         {currentPage === 'checkout' && (
           <CheckoutScreen
+            items={cartItems}
             onBack={() => handleNavigate('carrinho')}
-            onConfirmOrder={() => handleNavigate('pedido-confirmado')}
+            onConfirmOrder={() => {
+              handleClearCart();
+              handleNavigate('pedido-confirmado');
+            }}
             onShowToast={showToast}
           />
         )}
@@ -308,8 +402,17 @@ export function App() {
           <MobileProductDetailScreen
             onBack={() => handleNavigate('mobile-busca')}
             onAddToCart={(qty) => {
-              setCartCount((c) => c + qty);
-              showToast(`${qty}x Fonte de Água Bivolt adicionada ao carrinho!`);
+              const fonteItem: ProductItem = CATALOG_PRODUCTS.find((p) => p.id === 'fonte-agua') || {
+                id: 'fonte-agua',
+                name: 'Fonte de Água Bivolt',
+                category: 'Acessórios',
+                price: 89.9,
+                rating: 4.8,
+                reviewsCount: 94,
+                imageUrl: '/images/fonte-agua.png',
+                isFavorite: false,
+              };
+              handleAddToCart(fonteItem, qty);
             }}
             onNavigate={handleNavigate}
             onShowToast={showToast}
@@ -322,6 +425,7 @@ export function App() {
             onNavigate={handleNavigate}
             onLogout={handleLogout}
             onShowToast={showToast}
+            onAddCartItems={handleAddMultipleToCart}
           />
         )}
 

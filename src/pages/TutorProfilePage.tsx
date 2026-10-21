@@ -33,10 +33,10 @@ import type {
   FullTutorProfile,
   TutorPet,
   TutorOrder,
-  TutorAppointment,
   TutorAddress,
   TutorPaymentMethod,
   PetVaccineRecord,
+  CartItem,
 } from '../types';
 import { INITIAL_TUTOR_DATA } from '../data/tutorProfileData';
 import './TutorProfilePage.css';
@@ -46,6 +46,7 @@ interface TutorProfilePageProps {
   onLogout: () => void;
   onShowToast?: (message: string) => void;
   isLoggedIn?: boolean;
+  onAddCartItems?: (items: CartItem[]) => void;
 }
 
 type ProfileTab = 'pets' | 'pedidos' | 'agendamentos' | 'enderecos' | 'pagamentos' | 'configuracoes';
@@ -55,6 +56,7 @@ export const TutorProfilePage: React.FC<TutorProfilePageProps> = ({
   onLogout,
   onShowToast,
   isLoggedIn = true,
+  onAddCartItems,
 }) => {
   const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const urlTab = searchParams.get('tab') as ProfileTab | null;
@@ -405,6 +407,17 @@ export const TutorProfilePage: React.FC<TutorProfilePageProps> = ({
 
   // Handle Repeat Order
   const handleRepeatOrder = (order: TutorOrder) => {
+    if (onAddCartItems && order.items && order.items.length > 0) {
+      const cartItemsToAdd: CartItem[] = order.items.map((it, idx) => ({
+        id: `repeat-${order.id || 'ord'}-${idx}-${Date.now()}`,
+        name: it.name,
+        category: 'Produtos',
+        price: it.price,
+        quantity: it.quantity || 1,
+        imageUrl: it.imageUrl,
+      }));
+      onAddCartItems(cartItemsToAdd);
+    }
     if (onShowToast) {
       onShowToast(`Itens do pedido ${order.orderNumber} adicionados novamente ao seu carrinho!`);
     }
@@ -704,7 +717,7 @@ export const TutorProfilePage: React.FC<TutorProfilePageProps> = ({
                           alt={pet.name}
                           className="pet-wallet-avatar"
                           onError={(e) => {
-                            (e.target as HTMLElement).src = '/images/desktop/pet-pipoca.png';
+                            (e.target as HTMLImageElement).src = '/images/desktop/pet-pipoca.png';
                           }}
                         />
                         <div className="pet-wallet-info">
@@ -860,7 +873,7 @@ export const TutorProfilePage: React.FC<TutorProfilePageProps> = ({
                               alt={item.name}
                               className="order-product-img"
                               onError={(e) => {
-                                (e.target as HTMLElement).src = '/images/desktop/prod-racao-catalog.png';
+                                (e.target as HTMLImageElement).src = '/images/desktop/prod-racao-catalog.png';
                               }}
                             />
                             <div className="order-product-details">
@@ -1881,7 +1894,11 @@ export const TutorProfilePage: React.FC<TutorProfilePageProps> = ({
                       type="text"
                       placeholder="São Paulo - SP"
                       value={`${newAddrCity} - ${newAddrState}`}
-                      onChange={(e) => setNewAddrCity(e.target.value)}
+                      onChange={(e) => {
+                        const parts = e.target.value.split('-');
+                        setNewAddrCity(parts[0]?.trim() || e.target.value);
+                        if (parts[1]) setNewAddrState(parts[1].trim());
+                      }}
                     />
                   </div>
                 </div>

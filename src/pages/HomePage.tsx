@@ -19,6 +19,7 @@ interface HomePageProps {
   onNavigateToCategory?: (category: CategoryId) => void;
   onNavigateToProduct?: (productId: string) => void;
   onBookService?: (serviceId: string) => void;
+  onAddToCart?: (product: ProductItem, quantity?: number) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -26,6 +27,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onNavigateToCategory,
   onNavigateToProduct,
   onBookService,
+  onAddToCart,
 }) => {
   const [products, setProducts] = useState<ProductItem[]>(HOME_FEATURED_PRODUCTS);
 
@@ -74,6 +76,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 product={product}
                 onToggleFavorite={handleToggleFavorite}
                 onClick={onNavigateToProduct}
+                onAddToCart={onAddToCart ? (p) => onAddToCart(p, 1) : undefined}
               />
             ))}
           </div>

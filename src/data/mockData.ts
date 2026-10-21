@@ -9,6 +9,7 @@ import type {
   PetItem,
   CauseItem,
   ChatMessage,
+  CartItem,
 } from '../types';
 
 export const USER_PROFILE: UserProfile = {
@@ -826,3 +827,23 @@ export const CHAT_QUICK_ACTIONS: string[] = [
   'Produtos',
   'Adoção',
 ];
+
+export const INITIAL_CART_ITEMS: CartItem[] = [
+  {
+    id: 'fonte-agua',
+    name: 'Fonte de Água Bivolt',
+    category: 'Acessórios',
+    price: 89.90,
+    quantity: 1,
+    imageUrl: '/images/fonte-agua.png',
+  },
+  {
+    id: 'varinha-gatos',
+    name: 'Varinha para Gatos',
+    category: 'Brinquedos',
+    price: 19.90,
+    quantity: 2,
+    imageUrl: '/images/varinha-gatos.png',
+  },
+];
+

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Heart } from 'lucide-react';
+import { Star, Heart, ShoppingBag } from 'lucide-react';
 import type { ProductItem } from '../../types';
 import './ProductCard.css';
 
@@ -7,12 +7,14 @@ interface ProductCardProps {
   product: ProductItem;
   onToggleFavorite?: (id: string) => void;
   onClick?: (productId: string) => void;
+  onAddToCart?: (product: ProductItem) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onToggleFavorite,
   onClick,
+  onAddToCart,
 }) => {
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -66,13 +68,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Price & Action Row */}
         <div className="product-card-bottom-row">
           <span className="product-card-price">{formattedPrice}</span>
-          <button
-            type="button"
-            className="product-card-cta-btn"
-            onClick={() => onClick && onClick(product.id)}
-          >
-            Ver produto
-          </button>
+          <div className="product-card-actions">
+            {onAddToCart && (
+              <button
+                type="button"
+                className="product-card-add-cart-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAddToCart(product);
+                }}
+                title="Adicionar ao carrinho"
+                aria-label={`Adicionar ${product.name} ao carrinho`}
+              >
+                <ShoppingBag size={15} />
+              </button>
+            )}
+            <button
+              type="button"
+              className="product-card-cta-btn"
+              onClick={() => onClick && onClick(product.id)}
+            >
+              Ver produto
+            </button>
+          </div>
         </div>
       </div>
     </article>

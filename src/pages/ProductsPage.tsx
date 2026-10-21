@@ -10,12 +10,14 @@ import './ProductsPage.css';
 interface ProductsPageProps {
   onSelectProduct?: (productId: string) => void;
   onNavigateHome?: () => void;
+  onAddToCart?: (product: ProductItem, quantity?: number) => void;
 }
 
 type SortOption = 'relevantes' | 'menor-preco' | 'maior-preco' | 'melhor-avaliacao';
 
 export const ProductsPage: React.FC<ProductsPageProps> = ({
   onSelectProduct,
+  onAddToCart,
 }) => {
   const [products, setProducts] = useState<ProductItem[]>(CATALOG_PRODUCTS);
   const [searchQuery, setSearchQuery] = useState('');
@@ -163,6 +165,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   product={product}
                   onToggleFavorite={handleToggleFavorite}
                   onClick={onSelectProduct}
+                  onAddToCart={onAddToCart ? (p) => onAddToCart(p, 1) : undefined}
                 />
               ))}
             </div>

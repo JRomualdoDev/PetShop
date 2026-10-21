@@ -70,6 +70,15 @@ export interface ProductItem {
   petSize?: 'Pequeno' | 'Médio' | 'Grande' | string;
 }
 
+export interface CartItem {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+}
+
 export interface ServiceProcedure {
   id: string;
   name: string;

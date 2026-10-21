@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { ChevronLeft, MapPin, CreditCard, XCircle } from 'lucide-react';
 import { StatusBar } from '../../components/common/StatusBar';
 import { HomeIndicator } from '../../components/common/HomeIndicator';
+import type { CartItem } from '../../types';
 import './CheckoutScreen.css';
 
 interface CheckoutScreenProps {
+  items?: CartItem[];
+  totalAmount?: number;
   onBack: () => void;
   onConfirmOrder: () => void;
   onShowToast?: (message: string) => void;
@@ -13,6 +16,8 @@ interface CheckoutScreenProps {
 type PaymentMethod = 'credit' | 'pix' | 'debit';
 
 export const CheckoutScreen: React.FC<CheckoutScreenProps> = ({
+  items,
+  totalAmount,
   onBack,
   onConfirmOrder,
   onShowToast,
@@ -23,6 +28,12 @@ export const CheckoutScreen: React.FC<CheckoutScreenProps> = ({
     label: 'Minha Casa',
     details: 'Av. Paulista, 1000 - Apt 42, Bela Vista, São Paulo - SP',
   });
+
+  const subtotal = items ? items.reduce((acc, it) => acc + it.price * it.quantity, 0) : 0;
+  const computedTotal = totalAmount !== undefined
+    ? totalAmount
+    : (items && items.length > 0 ? subtotal + 12.00 : 101.90);
+  const formattedTotal = `R$ ${computedTotal.toFixed(2).replace('.', ',')}`;
 
   const handleConfirm = () => {
     onConfirmOrder();
@@ -136,7 +147,7 @@ export const CheckoutScreen: React.FC<CheckoutScreenProps> = ({
       <footer className="checkout-footer">
         <div className="checkout-total-row">
           <span className="checkout-total-label">Total do pedido</span>
-          <span className="checkout-total-value">R$ 101,90</span>
+          <span className="checkout-total-value">{formattedTotal}</span>
         </div>
 
         <button

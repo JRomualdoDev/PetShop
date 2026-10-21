@@ -145,7 +145,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
               alt={currentService.name}
               className="service-hero-img"
               onError={(e) => {
-                (e.target as HTMLElement).src = '/images/desktop/service-vet-gustavo.png';
+                (e.target as HTMLImageElement).src = '/images/desktop/service-vet-gustavo.png';
               }}
             />
             {currentService.crmv && (
