@@ -15,8 +15,8 @@ import { RegisterPage } from './pages/RegisterPage';
 import { SplashScreen } from './pages/mobile/SplashScreen';
 import { OnboardingScreen } from './pages/mobile/OnboardingScreen';
 import { CartPage } from './pages/CartPage';
-import { CheckoutScreen } from './pages/mobile/CheckoutScreen';
-import { OrderConfirmationScreen } from './pages/mobile/OrderConfirmationScreen';
+import { CheckoutPage, type OrderSummaryData } from './pages/CheckoutPage';
+import { OrderConfirmationPage } from './pages/OrderConfirmationPage';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { HomeScreen } from './pages/mobile/HomeScreen';
 import { SearchScreen } from './pages/mobile/SearchScreen';
@@ -62,6 +62,7 @@ export function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
   const [currentUserName, setCurrentUserName] = useState<string>('Mariana');
+  const [confirmedOrder, setConfirmedOrder] = useState<OrderSummaryData | null>(null);
 
   const showToast = (message: string) => {
     setToastMessage(message);
@@ -214,8 +215,6 @@ export function App() {
     currentPage === 'cadastro' ||
     currentPage === 'splash' ||
     currentPage === 'onboarding' ||
-    currentPage === 'checkout' ||
-    currentPage === 'pedido-confirmado' ||
     currentPage.startsWith('mobile-');
 
   return (
@@ -364,21 +363,26 @@ export function App() {
         )}
 
         {currentPage === 'checkout' && (
-          <CheckoutScreen
+          <CheckoutPage
             items={cartItems}
-            onBack={() => handleNavigate('carrinho')}
-            onConfirmOrder={() => {
+            onBackToCart={() => handleNavigate('carrinho')}
+            onConfirmOrder={(orderData) => {
+              setConfirmedOrder(orderData);
               handleClearCart();
               handleNavigate('pedido-confirmado');
             }}
+            onNavigateHome={() => handleNavigate('inicio')}
             onShowToast={showToast}
+            userName={currentUserName}
           />
         )}
 
         {currentPage === 'pedido-confirmado' && (
-          <OrderConfirmationScreen
-            onViewOrder={() => handleNavigate('carrinho')}
+          <OrderConfirmationPage
+            orderData={confirmedOrder}
+            onViewOrders={() => handleNavigate('perfil')}
             onNavigateHome={() => handleNavigate('inicio')}
+            onShowToast={showToast}
           />
         )}
 

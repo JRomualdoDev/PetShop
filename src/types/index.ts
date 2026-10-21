@@ -288,4 +288,6 @@ export interface ChatMessage {
   sender: 'bot' | 'user';
   text: string;
   time: string;
+  actionPage?: NavPageId;
+  actionLabel?: string;
 }
